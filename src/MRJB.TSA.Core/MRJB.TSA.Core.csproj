@@ -15,4 +15,8 @@
     <ProjectReference Include="..\MRJB.TSA.Core.Domain\MRJB.TSA.Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
