@@ -1,5 +1,4 @@
-﻿using MRJB.TSA.Abstractions.Enums;
-using System;
+﻿using System;
 
 namespace MRJB.TSA.Abstractions.Attribute;
 
