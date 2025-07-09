@@ -6,7 +6,7 @@ namespace MRJB.TSA.Core.Tests.Unit;
 public class ValidationTest : BaseTsaTest
 {
     [Fact]
-    public void Validate_Pass()
+    public async Task Validate_Pass()
     {
         try
         {
@@ -21,7 +21,7 @@ public class ValidationTest : BaseTsaTest
             var tsa = new TSA(logger);
 
             // act
-            var result = tsa.ValidateAsync(assemblies);
+            var result = await tsa.ValidateAsync(assemblies);
 
             // assert
         }
