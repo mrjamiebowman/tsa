@@ -5,5 +5,5 @@ namespace MRJB.TSA.Core;
 
 public interface ITSA
 {
-    Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default);
+    Task<List<ConfigurationEntry>> GetConfigurationsAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default);
 }

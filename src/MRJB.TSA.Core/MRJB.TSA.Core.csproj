@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MRJB.TSA.Core.Abstractions\MRJB.TSA.Abstractions.csproj" />
     <ProjectReference Include="..\MRJB.TSA.Core.Domain\MRJB.TSA.Core.Domain.csproj" />
   </ItemGroup>
 
