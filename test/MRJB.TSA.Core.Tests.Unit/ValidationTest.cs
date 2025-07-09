@@ -6,7 +6,7 @@ namespace MRJB.TSA.Core.Tests.Unit;
 public class ValidationTest : BaseTsaTest
 {
     [Fact]
-    public void Test1()
+    public void Validate_Pass()
     {
         try
         {
