@@ -1,6 +1,6 @@
 ﻿namespace MRJB.TSA.Core.Tests.Unit;
 
-public class UnitTest1
+public class ValidationTest
 {
     [Fact]
     public void Test1()
