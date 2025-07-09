@@ -1,4 +1,4 @@
-# Terrible Settings Auditor (TSA)
+# ✈️  Terrible Settings Auditor (TSA)
 "We screen your app settings before they crash on takeoff."
 
 An open-source .NET tool that audits, validates, and fixes your application's configuration and environment — all with TSA-grade scrutiny.
