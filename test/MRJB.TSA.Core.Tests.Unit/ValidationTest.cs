@@ -12,7 +12,7 @@ public class ValidationTest : BaseTsaTest
         {
             // arrange
             List<Assembly> assemblies = new List<Assembly>();
-            assemblies.Add(typeof(Program).Assembly);
+            assemblies.Add(typeof(MRJB.TSA.SampleApp.Passport).Assembly);
 
             // logger
             var logger = base.GetLogger();

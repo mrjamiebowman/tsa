@@ -57,16 +57,23 @@ public class TSA : ITSA
                 // You can extract property info, values, metadata, etc., from these types
                 var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
+                var configEntry = new ConfigurationEntry()
+                {
+                    ClassName = type.FullName!
+                };
+
                 foreach (var prop in properties)
                 {
                     // You can adjust this to match your ConfigurationEntry needs
-                    configurationEntries.Add(new ConfigurationEntry
+
+                    configEntry.Properties.Add(new ConfigurationProperty
                     {
-                        ClassName = type.FullName!
-                        //PropertyName = prop.Name,
-                        //PropertyType = prop.PropertyType.FullName!
+                        PropertyName = prop.Name,
+                        PropertyType = prop.PropertyType.FullName!
                     });
                 }
+
+                configurationEntries.Add(configEntry);
             }
         }
 
