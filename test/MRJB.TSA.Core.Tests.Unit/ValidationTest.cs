@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace MRJB.TSA.Core.Tests.Unit;
 

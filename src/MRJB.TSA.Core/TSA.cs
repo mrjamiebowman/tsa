@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
 using MRJB.TSA.Core.Domain.Models;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace MRJB.TSA.Core;
@@ -38,10 +37,8 @@ public class TSA : ITSA
 
     #region private methods
 
-    public async Task<List<ConfigurationEntry>> GetConfigurationsAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
+    public Task<List<ConfigurationEntry>> GetConfigurationsAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
     {
-        await Task.Delay(10);
-
         var configurationEntries = new List<ConfigurationEntry>();
 
         foreach (var assembly in assemblies)
@@ -77,7 +74,7 @@ public class TSA : ITSA
             }
         }
 
-        return configurationEntries;
+        return Task.FromResult(configurationEntries);
     }
 
     #endregion
