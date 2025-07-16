@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
 using MRJB.TSA.Core.Domain.Models;
+using MRJB.TSA.Core.Models;
 using System.Reflection;
 
 namespace MRJB.TSA.Core;
@@ -14,10 +15,23 @@ public class TSA : ITSA
         _logger = logger;
     }
 
-    public async Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
+    public Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
+    {
+        return ValidateAsync(assemblies, null, cancellationToken);
+    }
+
+    public async Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
     {
         // result
         var screeningReport = new ScreeningReport();
+
+        // default screening settings
+        ScreeningSettings screeningSettings = new ScreeningSettings();
+
+        if (SsreeningSettingsAction != null)
+        {
+            SsreeningSettingsAction.Invoke(screeningSettings);
+        }
 
         await Task.Delay(10);
 
@@ -31,6 +45,8 @@ public class TSA : ITSA
 
             configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
         }
+
+        // process configurations
 
         return screeningReport;
     }
