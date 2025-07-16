@@ -8,7 +8,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // tsa
-builder.Services.AddTerribleSettingsAuditor(builder.Configuration);
+builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s =>
+{
+    s.Features.Validation = true;
+    s.Features.Arguments = true;
+});
 
 var app = builder.Build();
 
@@ -18,10 +22,18 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseTerribleSettingsAuditor(args);
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+
+try
+{
+    await app.RunAsync();
+} catch (Exception ex)
+{
+    throw;
+}
 
 public partial class Program
 {

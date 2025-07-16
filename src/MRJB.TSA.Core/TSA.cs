@@ -8,6 +8,7 @@ namespace MRJB.TSA.Core;
 
 public class TSA : ITSA
 {
+    // logger
     private ILogger<TSA> _logger;
 
     public TSA(ILogger<TSA> logger)
@@ -33,7 +34,7 @@ public class TSA : ITSA
             SsreeningSettingsAction.Invoke(screeningSettings);
         }
 
-        await Task.Delay(10);
+        await Task.Delay(50);
 
         // configurations
         List<ConfigurationEntry> configurations = new List<ConfigurationEntry>();
@@ -47,6 +48,12 @@ public class TSA : ITSA
         }
 
         // process configurations
+        foreach (var config in configurations)
+        {
+            // validate
+
+            // append
+        }
 
         return screeningReport;
     }

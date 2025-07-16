@@ -12,6 +12,8 @@ public class ValidationTest : BaseTsaTest
         try
         {
             // arrange
+            CancellationTokenSource cts = new();
+
             List<Assembly> assemblies = new List<Assembly>();
             assemblies.Add(typeof(MRJB.TSA.SampleApp.Passport).Assembly);
 
@@ -22,7 +24,7 @@ public class ValidationTest : BaseTsaTest
             var tsa = new TSA(logger);
 
             // act
-            var result = await tsa.ValidateAsync(assemblies);
+            var result = await tsa.ValidateAsync(assemblies, cts.Token);
 
             // assert
         }
