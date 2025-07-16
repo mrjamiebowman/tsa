@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using MRJB.TSA.Core;
+using MRJB.TSA.Core.Tests.Unit;
+using System.Reflection;
 
-namespace MRJB.TSA.Core.Tests.Unit;
+namespace Validation;
 
 public class ValidationTest : BaseTsaTest
 {
@@ -14,7 +16,7 @@ public class ValidationTest : BaseTsaTest
             assemblies.Add(typeof(MRJB.TSA.SampleApp.Passport).Assembly);
 
             // logger
-            var logger = base.GetLogger();
+            var logger = GetLogger();
 
             // tsa
             var tsa = new TSA(logger);

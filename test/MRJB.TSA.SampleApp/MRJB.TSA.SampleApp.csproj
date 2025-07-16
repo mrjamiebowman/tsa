@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MRJB.TSA.Core.Abstractions\MRJB.TSA.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\MRJB.TSA.Core\MRJB.TSA.Core.csproj" />
   </ItemGroup>
 
 </Project>
