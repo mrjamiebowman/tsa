@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\MRJB.TSA.Core\MRJB.TSA.Core.csproj" />
     <ProjectReference Include="..\MRJB.TSA.Core.Tests\MRJB.TSA.Core.Tests.csproj" />
+    <ProjectReference Include="..\MRJB.TSA.SampleApp\MRJB.TSA.SampleApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
