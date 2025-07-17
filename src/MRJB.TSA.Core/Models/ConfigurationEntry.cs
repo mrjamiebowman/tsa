@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Domain.Models;
+﻿namespace MRJB.TSA.Core.Models;
 
 #nullable enable
 

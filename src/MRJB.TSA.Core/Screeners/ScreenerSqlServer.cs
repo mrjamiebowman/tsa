@@ -1,4 +1,4 @@
-﻿using MRJB.TSA.Core.Domain.Interfaces;
+﻿using MRJB.TSA.Core.Interfaces;
 
 namespace MRJB.TSA.Core.Screeners;
 

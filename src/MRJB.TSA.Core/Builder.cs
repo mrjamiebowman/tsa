@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using MRJB.TSA.Core;
+using Microsoft.Extensions.DependencyInjection;
 using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Configuration;
+using MRJB.TSA.Core.Interfaces;
+using MRJB.TSA.Core.Services;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace MRJB.TSA.Core;
 
 public static class Builder
 {
@@ -20,7 +22,8 @@ public static class Builder
         TsaConfiguration tsaConfiguration = new TsaConfiguration();
         configuration.GetSection(TsaConfiguration.Position).Bind(tsaConfiguration);
 
-        if (tsaSettings != null) {
+        if (tsaSettings != null)
+        {
             tsaSettings.Invoke(tsaConfiguration);
         }
 
@@ -36,7 +39,7 @@ public static class Builder
     {
         ArgumentNullException.ThrowIfNull(app);
 
-        if (args == null || args.Length == 0  || args?.Contains("tsa") == false)
+        if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
         {
             return app;
         }
@@ -86,5 +89,5 @@ public static class Builder
         }
 
         return app;
-    }   
+    }
 }

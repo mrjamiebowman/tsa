@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Domain;
+﻿namespace MRJB.TSA.Core;
 
 public class OTel
 {

@@ -1,6 +1,6 @@
-﻿using MRJB.TSA.Core.Domain.Interfaces;
+﻿using MRJB.TSA.Core.Interfaces;
 
-namespace MRJB.TSA.Core.Screeners;
+namespace MRJB.TSA.Core.Services;
 
 public class FlightServices : IFlightServices
 {

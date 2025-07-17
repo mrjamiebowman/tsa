@@ -1,3 +1,5 @@
+using MRJB.TSA.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

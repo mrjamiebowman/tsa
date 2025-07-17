@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
-using MRJB.TSA.Core.Domain.Models;
+using MRJB.TSA.Core.Interfaces;
 using MRJB.TSA.Core.Models;
 using System.Reflection;
 
-namespace MRJB.TSA.Core;
+namespace MRJB.TSA.Core.Services;
 
 public class TSA : ITSA
 {

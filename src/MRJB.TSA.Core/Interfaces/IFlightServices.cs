@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Domain.Interfaces;
+﻿namespace MRJB.TSA.Core.Interfaces;
 
 public interface IFlightServices
 {

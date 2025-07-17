@@ -1,7 +1,7 @@
-﻿using MRJB.TSA.Core.Domain.Models;
+﻿using MRJB.TSA.Core.Models;
 using System.Reflection;
 
-namespace MRJB.TSA.Core;
+namespace MRJB.TSA.Core.Interfaces;
 
 public interface ITSA
 {
