@@ -73,8 +73,9 @@ public static class TsaCli
     {
         text = text.Trim();
 
-        if (text.Length >= width - 2)
+        if (text.Length >= width - 2) {
             text = text.Substring(0, width - 4) + "..";
+        }
 
         int padding = (width - text.Length) / 2;
         return new string(' ', padding) + text;
