@@ -116,7 +116,8 @@ public class TSA : ITSA
                 var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
                 var configEntry = new ConfigurationEntry()
-                {
+                { 
+                    Assembly = assembly.FullName,
                     ClassName = type.FullName!
                 };
 
