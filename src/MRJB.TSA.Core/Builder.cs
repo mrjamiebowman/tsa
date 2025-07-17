@@ -29,7 +29,7 @@ public static class Builder
     {
         ArgumentNullException.ThrowIfNull(app);
 
-        if (args == null || args?.Contains("tsa") == false)
+        if (args == null || args.Length == 0  || args?.Contains("tsa") == false)
         {
             return app;
         }
@@ -41,7 +41,7 @@ public static class Builder
         TsaCli.ShowBanner();
 
         // help
-        if (args.Length == 0 || args[0] == "--help" || args[0] == "-h")
+        if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
         {
             TsaCli.ShowHelp();
             Environment.Exit(1);
@@ -50,8 +50,22 @@ public static class Builder
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
 
-        // args
-        if (args?.Contains("--validate") == true)
+        // tsa: generate config
+        if (args[0] == "tsa" && (args[1] == "--generate-config" || args[1] == "-gc"))
+        {
+            TsaCli.WriteYellow("Generating TSA Config...");
+            Environment.Exit(1);
+        }
+
+        // tsa: validate
+        if (args[0] == "tsa" && (args[1] == "--joke" || args[1] == "-j"))
+        {
+            TsaCli.GenerateJoke();
+            Environment.Exit(1);
+        }
+
+        // tsa: validate
+        if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))
         {
             TsaCli.ShowReport();
             Environment.Exit(1);

@@ -51,15 +51,24 @@ public static class TsaCli
         WriteYellow("https://github.com/mrjamiebowman/tsa");
         WriteYellow("https://www.mrjamiebowman.com/tsa");
         Console.WriteLine("");
-        Console.WriteLine("");
+    }
+
+    public static void GenerateJoke()
+    {
+        WriteGreen(@"");
+        WriteGreen($"👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
+        WriteGreen(@"");
     }
 
     public static void ShowHelp()
     {
-        Console.WriteLine("✈️ Terrible Settings Auditor (TSA):");
-        Console.WriteLine("  greet --name <YourName>   Greets the user with green text");
-        Console.WriteLine("  --help                    Show help info");
+        Console.WriteLine("✈️ Terrible Settings Auditor (TSA)");
+        Console.WriteLine("tsa --help                Show help info");
+        Console.WriteLine("tsa --validate            Ensures all configuration and settings are valid.");
+        Console.WriteLine("tsa --generate-config     Creates a scaffolded tsa.json configuration file for TSA settings.");
+        Console.WriteLine("tsa --joke                On the house — courtesy of your flight.");
     }
+
     public static string CenterText(string text, int width)
     {
         text = text.Trim();
@@ -95,7 +104,7 @@ public static class TsaCli
     public static string GenerateRandomScreeningReportMessage()
     {
         string[] tsaLines = new[]
-{
+        {
             "Sir, your bag just made a noise we’ve only heard in spy movies. Mind stepping over here before it takes off on its own?",
             "We’re gonna need you to step to the side. Your bag has more white powder than Tony Montana’s desk.",
             "Sir, we saw you sweating like you're smuggling fireworks on the Fourth of July. Quick chat over here?",

@@ -22,7 +22,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+// terrible settings auditor (tsa)
 app.UseTerribleSettingsAuditor(args);
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
