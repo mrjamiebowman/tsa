@@ -1,4 +1,6 @@
-﻿namespace MRJB.TSA.Core.CLI;
+﻿using MRJB.TSA.Core.Models;
+
+namespace MRJB.TSA.Core.CLI;
 
 public static class TsaCli
 {
@@ -95,11 +97,15 @@ public static class TsaCli
         }
     }
 
-    public static void ShowReport()
+    public static void ShowReport(ScreeningReport screeningReport)
     {
         WriteGreen($"👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
         Console.WriteLine("");
         ShowBlock("📄 Screening Report");
+
+        // summary
+
+        // configs
     }
 
     public static string GenerateRandomScreeningReportMessage()

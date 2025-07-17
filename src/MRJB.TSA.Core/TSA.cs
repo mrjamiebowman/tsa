@@ -4,7 +4,7 @@ using MRJB.TSA.Core.Interfaces;
 using MRJB.TSA.Core.Models;
 using System.Reflection;
 
-namespace MRJB.TSA.Core.Services;
+namespace MRJB.TSA.Core;
 
 public class TSA : ITSA
 {
@@ -16,12 +16,12 @@ public class TSA : ITSA
         _logger = logger;
     }
 
-    public Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
+    public Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
-        return ValidateAsync(assemblies, null, cancellationToken);
+        return PreCheckAsync(assemblies, null, cancellationToken);
     }
 
-    public async Task<ScreeningReport> ValidateAsync(List<Assembly> assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
+    public async Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
     {
         // result
         var screeningReport = new ScreeningReport();
@@ -34,18 +34,56 @@ public class TSA : ITSA
             SsreeningSettingsAction.Invoke(screeningSettings);
         }
 
-        await Task.Delay(50);
+        // configurations
+        List<ConfigurationEntry> configurations = new List<ConfigurationEntry>();
+
+        foreach (var assembly in assemblies)
+        {
+            //TsaCli.WriteGreen($"Loaded Assembly: {assembly.FullName}");
+        }
+
+        // assemblies
+        configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
+
+        // process configurations
+        foreach (var config in configurations)
+        {
+            // validate
+
+            // append
+        }
+
+        return screeningReport;
+    }
+
+    public Task<ScreeningReport> ValidateAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
+    {
+        return ValidateAsync(assemblies, null, cancellationToken);
+    }
+
+    public async Task<ScreeningReport> ValidateAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
+    {
+        // result
+        var screeningReport = new ScreeningReport();
+
+        // default screening settings
+        ScreeningSettings screeningSettings = new ScreeningSettings();
+
+        if (SsreeningSettingsAction != null)
+        {
+            SsreeningSettingsAction.Invoke(screeningSettings);
+        }
 
         // configurations
         List<ConfigurationEntry> configurations = new List<ConfigurationEntry>();
 
         foreach (var assembly in assemblies)
         {
-            _logger.LogInformation($"Loaded Assembly: {assembly.FullName}");
-            // Do something with the assembly
-
-            configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
+            //TsaCli.WriteGreen($"Loaded Assembly: {assembly.FullName}");
         }
+
+        // assemblies
+        configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
 
         // process configurations
         foreach (var config in configurations)
@@ -60,7 +98,7 @@ public class TSA : ITSA
 
     #region private methods
 
-    public Task<List<ConfigurationEntry>> GetConfigurationsAsync(List<Assembly> assemblies, CancellationToken cancellationToken = default)
+    public Task<List<ConfigurationEntry>> GetConfigurationsAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
         var configurationEntries = new List<ConfigurationEntry>();
 
@@ -85,7 +123,6 @@ public class TSA : ITSA
                 foreach (var prop in properties)
                 {
                     // You can adjust this to match your ConfigurationEntry needs
-
                     configEntry.Properties.Add(new ConfigurationProperty
                     {
                         PropertyName = prop.Name,

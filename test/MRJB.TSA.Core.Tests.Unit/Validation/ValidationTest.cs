@@ -24,7 +24,7 @@ public class ValidationTest : BaseTsaTest
             var tsa = new TSA(logger);
 
             // act
-            var result = await tsa.ValidateAsync(assemblies, cts.Token);
+            var result = await tsa.ValidateAsync(assemblies.ToArray(), cts.Token);
 
             // assert
         }

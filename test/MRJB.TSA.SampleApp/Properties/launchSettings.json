@@ -29,6 +29,16 @@
       },
       "commandLineArgs": "tsa --help"
     },
+    "tsa --precheck": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7291;http://localhost:5048",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "commandLineArgs": "tsa --precheck"
+    },
     "tsa --validate": {
       "commandName": "Project",
       "dotnetRunMessages": true,

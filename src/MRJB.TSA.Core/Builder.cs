@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Configuration;
 using MRJB.TSA.Core.Interfaces;
-using MRJB.TSA.Core.Services;
+using MRJB.TSA.Core.Models;
 
 namespace MRJB.TSA.Core;
 
@@ -35,20 +35,25 @@ public static class Builder
         return services;
     }
 
-    public static IApplicationBuilder UseTerribleSettingsAuditor(this IApplicationBuilder app, string[]? args = null)
+    public static async Task<IApplicationBuilder> UseTerribleSettingsAuditor(this IApplicationBuilder app, string[]? args = null)
     {
         ArgumentNullException.ThrowIfNull(app);
-
+        
         if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
         {
             return app;
         }
+
+        // cts
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         // unicode
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         // banner
         TsaCli.ShowBanner();
+
+
 
         // help
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
@@ -75,19 +80,25 @@ public static class Builder
         }
 
         // tsa: pre-check
-        if (args[0] == "tsa" && (args[1] == "--pre-check" || args[1] == "-pc"))
+        if (args[0] == "tsa" && (args[1] == "--precheck" || args[1] == "--pre-check" || args[1] == "-pc"))
         {
-            TsaCli.ShowReport();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var screeningReport = await tsa.PreCheckAsync(assemblies, cts.Token);
+            TsaCli.ShowReport(screeningReport);
             Environment.Exit(1);
         }
 
         // tsa: validate
         if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))
         {
-            TsaCli.ShowReport();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var screeningReport = await tsa.ValidateAsync(assemblies);
+            TsaCli.ShowReport(screeningReport);
             Environment.Exit(1);
         }
 
         return app;
     }
+
+    // TODO: opentelemetry
 }
