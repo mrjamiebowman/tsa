@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using MRJB.TSA.Core;
 using MRJB.TSA.Core.CLI;
+using MRJB.TSA.Core.Configuration;
 using MRJB.TSA.Core.Settings;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -15,9 +15,17 @@ public static class Builder
     /// <param name="services"></param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    public static IServiceCollection AddTerribleSettingsAuditor(this IServiceCollection services, IConfiguration configuration, Action<TsaSettings>? tsaSettings = default)
+    public static IServiceCollection AddTerribleSettingsAuditor(this IServiceCollection services, IConfiguration configuration, Action<TsaConfiguration>? tsaSettings = default)
     {
         // configuration
+        TsaConfiguration tsaConfiguration = new TsaConfiguration();
+        configuration.GetSection(TsaConfiguration.Position).Bind(tsaConfiguration);
+
+        if (tsaSettings != null) {
+            tsaSettings.Invoke(tsaConfiguration);
+        }
+
+        services.AddSingleton(tsaConfiguration);
 
         // services
         services.AddTransient<ITSA, TSA>();
@@ -57,10 +65,17 @@ public static class Builder
             Environment.Exit(1);
         }
 
-        // tsa: validate
+        // tsa: joke
         if (args[0] == "tsa" && (args[1] == "--joke" || args[1] == "-j"))
         {
             TsaCli.GenerateJoke();
+            Environment.Exit(1);
+        }
+
+        // tsa: pre-check
+        if (args[0] == "tsa" && (args[1] == "--pre-check" || args[1] == "-pc"))
+        {
+            TsaCli.ShowReport();
             Environment.Exit(1);
         }
 
