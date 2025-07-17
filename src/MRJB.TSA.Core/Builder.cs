@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Configuration;
 using MRJB.TSA.Core.Interfaces;
-using MRJB.TSA.Core.Models;
 
 namespace MRJB.TSA.Core;
 

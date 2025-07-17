@@ -53,7 +53,30 @@ public class TSA : ITSA
             // validate
             var config = serviceProvider.GetService(configKey.Type);
 
-            // append
+            var configType = config.GetType();
+            var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            // carry-on
+            var carryOnAttr = configType.GetCustomAttribute<CarryOnAttribute>();
+
+            foreach (var prop in properties)
+            {
+                var baggageAttr = prop.GetCustomAttribute<BaggageItemAttribute>();
+                //var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionString>();
+
+                if (carryOnAttr != null || baggageAttr != null)
+                {
+                    var value = prop.GetValue(config);
+
+                    Console.WriteLine($"Property: {prop.Name}");
+                    Console.WriteLine($"  Value: {value}");
+                    if (carryOnAttr != null)
+                        Console.WriteLine("  Has [CarryOn]");
+
+                    if (baggageAttr != null)
+                        Console.WriteLine("  Has [BaggageItem]");
+                }
+            }
         }
 
         return screeningReport;
