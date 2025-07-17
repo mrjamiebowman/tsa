@@ -97,7 +97,9 @@ public static class TsaCli
 
     public static void ShowReport()
     {
-        ShowBlock("👮 Screening Report", GenerateRandomScreeningReportMessage());
+        WriteGreen($"👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
+        Console.WriteLine("");
+        ShowBlock("📄 Screening Report");
     }
 
     public static string GenerateRandomScreeningReportMessage()
