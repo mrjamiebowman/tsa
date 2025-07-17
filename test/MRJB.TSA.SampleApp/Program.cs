@@ -1,4 +1,5 @@
 using MRJB.TSA.Core;
+using MRJB.TSA.SampleApp.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,13 @@ builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// configuration
+DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
+databaseConfiguration.ConnectionStringSampleApp = "connection-string";
+databaseConfiguration.ConnectionStringUsersDb = "";
+
+builder.Services.AddSingleton(databaseConfiguration);
 
 // tsa
 builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s =>

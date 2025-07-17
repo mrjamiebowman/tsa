@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
 using MRJB.TSA.Core.Interfaces;
 using MRJB.TSA.Core.Models;
@@ -16,12 +18,12 @@ public class TSA : ITSA
         _logger = logger;
     }
 
-    public Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
+    public Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
-        return PreCheckAsync(assemblies, null, cancellationToken);
+        return PreCheckAsync(serviceProvider, assemblies, null, cancellationToken);
     }
 
-    public async Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
+    public async Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
     {
         // result
         var screeningReport = new ScreeningReport();
@@ -43,12 +45,13 @@ public class TSA : ITSA
         }
 
         // assemblies
-        configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
+        configurations = await GetConfigurationsAsync(serviceProvider, assemblies, cancellationToken);
 
         // process configurations
-        foreach (var config in configurations)
+        foreach (var configKey in configurations)
         {
             // validate
+            var config = serviceProvider.GetService(configKey.Type);
 
             // append
         }
@@ -56,12 +59,12 @@ public class TSA : ITSA
         return screeningReport;
     }
 
-    public Task<ScreeningReport> ValidateAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
+    public Task<ScreeningReport> ValidateAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
-        return ValidateAsync(assemblies, null, cancellationToken);
+        return ValidateAsync(serviceProvider, assemblies, null, cancellationToken);
     }
 
-    public async Task<ScreeningReport> ValidateAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
+    public async Task<ScreeningReport> ValidateAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
     {
         // result
         var screeningReport = new ScreeningReport();
@@ -83,7 +86,7 @@ public class TSA : ITSA
         }
 
         // assemblies
-        configurations = await GetConfigurationsAsync(assemblies, cancellationToken);
+        configurations = await GetConfigurationsAsync(serviceProvider, assemblies, cancellationToken);
 
         // process configurations
         foreach (var config in configurations)
@@ -98,17 +101,19 @@ public class TSA : ITSA
 
     #region private methods
 
-    public Task<List<ConfigurationEntry>> GetConfigurationsAsync(Assembly[] assemblies, CancellationToken cancellationToken = default)
+    public Task<List<ConfigurationEntry>> GetConfigurationsAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
         var configurationEntries = new List<ConfigurationEntry>();
 
         foreach (var assembly in assemblies)
         {
             if (cancellationToken.IsCancellationRequested)
+            {
                 break;
+            }
 
             var typesWithAttribute = assembly.GetTypes()
-                .Where(t => t.IsClass && t.GetCustomAttribute<CarryOnAttribute>() != null);
+                                             .Where(t => t.IsClass && t.GetCustomAttribute<CarryOnAttribute>() != null);
 
             foreach (var type in typesWithAttribute)
             {
@@ -118,7 +123,8 @@ public class TSA : ITSA
                 var configEntry = new ConfigurationEntry()
                 { 
                     Assembly = assembly.FullName,
-                    ClassName = type.FullName!
+                    ClassName = type.FullName!,
+                    Type = type
                 };
 
                 foreach (var prop in properties)

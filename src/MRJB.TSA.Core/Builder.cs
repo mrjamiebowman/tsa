@@ -50,10 +50,10 @@ public static class Builder
         // unicode
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+        // TODO: no banner arg, no joke
+
         // banner
         TsaCli.ShowBanner();
-
-
 
         // help
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
@@ -83,7 +83,7 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--precheck" || args[1] == "--pre-check" || args[1] == "-pc"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var screeningReport = await tsa.PreCheckAsync(assemblies, cts.Token);
+            var screeningReport = await tsa.PreCheckAsync(app.ApplicationServices, assemblies, cts.Token);
             TsaCli.ShowReport(screeningReport);
             Environment.Exit(1);
         }
@@ -92,7 +92,7 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var screeningReport = await tsa.ValidateAsync(assemblies);
+            var screeningReport = await tsa.ValidateAsync(app.ApplicationServices, assemblies);
             TsaCli.ShowReport(screeningReport);
             Environment.Exit(1);
         }

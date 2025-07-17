@@ -5,11 +5,11 @@ namespace MRJB.TSA.Core.Interfaces;
 
 public interface ITSA
 {
-    Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, CancellationToken cancellationToken = default);
+    Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default);
 
-    Task<ScreeningReport> PreCheckAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default);
+    Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default);
 
-    Task<List<ConfigurationEntry>> GetConfigurationsAsync(Assembly[] assemblies, CancellationToken cancellationToken = default);
+    Task<List<ConfigurationEntry>> GetConfigurationsAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default);
 
-    Task<ScreeningReport> ValidateAsync(Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default);
+    Task<ScreeningReport> ValidateAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default);
 }
