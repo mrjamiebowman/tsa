@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MRJB.TSA.Core;
+using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Settings;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,24 @@ public static class Builder
     {
         ArgumentNullException.ThrowIfNull(app);
 
+        if (args == null || args?.Contains("tsa") == false)
+        {
+            return app;
+        }
+
+        // unicode
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        // banner
+        TsaCli.ShowBanner();
+
+        // help
+        if (args.Length == 0 || args[0] == "--help" || args[0] == "-h")
+        {
+            TsaCli.ShowHelp();
+            Environment.Exit(1);
+        }
+
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
 
@@ -39,6 +58,5 @@ public static class Builder
         }
 
         return app;
-    }
-
+    }   
 }
