@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
 using MRJB.TSA.Core.Interfaces;
 using MRJB.TSA.Core.Models;
