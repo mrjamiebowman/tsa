@@ -10,8 +10,8 @@ builder.Services.AddOpenApi();
 // tsa
 builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s =>
 {
-    s.Features.Validation = true;
-    s.Features.Arguments = true;
+    s.PreCheck = true;
+    s.AbortPreCheckFailure = true;
 });
 
 var app = builder.Build();

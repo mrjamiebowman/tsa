@@ -45,9 +45,7 @@ public static class TsaCli
         Console.WriteLine("");
         WriteGreen("✈️ Terrible Settings Auditor (TSA)");
         WriteGreen("By: @mrjamiebowman");
-        Console.WriteLine("");
         ShowLogo();
-        Console.WriteLine("");        
         WriteYellow("https://github.com/mrjamiebowman/tsa");
         WriteYellow("https://www.mrjamiebowman.com/tsa");
         Console.WriteLine("");

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using MRJB.TSA.Core;
 using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Configuration;
-using MRJB.TSA.Core.Settings;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
