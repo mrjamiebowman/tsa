@@ -53,7 +53,7 @@ public static class Builder
         // args
         if (args?.Contains("--validate") == true)
         {
-            Console.WriteLine("Exiting due to --fail-fast argument.");
+            TsaCli.ShowReport();
             Environment.Exit(1);
         }
 

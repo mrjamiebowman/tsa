@@ -29,7 +29,7 @@
       },
       "commandLineArgs": "tsa --help"
     },
-    "arg --validate": {
+    "tsa --validate": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
