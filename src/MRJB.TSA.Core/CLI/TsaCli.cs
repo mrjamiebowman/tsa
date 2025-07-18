@@ -97,13 +97,23 @@ public static class TsaCli
 
     public static void ShowReport(ScreeningReport screeningReport)
     {
-        WriteGreen($"👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
         Console.WriteLine("");
-        ShowBlock("📄 Screening Report");
-
-        // summary
+        ShowBlock(" 📄 Screening Report");
+        Console.WriteLine("");
+        WriteGreen($" 👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
+        Console.WriteLine("");
 
         // configs
+        foreach (var item in screeningReport.Configuration)
+        {
+            WriteYellow(" " + item.Message);
+            foreach (var prop in item.Properties)
+            {
+                WriteYellow("  " + prop.Message);
+            }
+
+            Console.WriteLine("");
+        }
     }
 
     public static string GenerateRandomScreeningReportMessage()
