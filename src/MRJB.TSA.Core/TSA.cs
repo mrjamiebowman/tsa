@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MRJB.TSA.Abstractions.Attribute;
+using MRJB.TSA.Core.CLI;
 using MRJB.TSA.Core.Interfaces;
 using MRJB.TSA.Core.Models;
 using System.Reflection;
@@ -37,17 +38,18 @@ public class TSA : ITSA
         // configurations
         List<ConfigurationEntry> configurations = new List<ConfigurationEntry>();
 
-        foreach (var assembly in assemblies)
-        {
-            //TsaCli.WriteGreen($"Loaded Assembly: {assembly.FullName}");
-        }
-
         // assemblies
         configurations = await GetConfigurationsAsync(serviceProvider, assemblies, cancellationToken);
 
         // process configurations
         foreach (var configKey in configurations)
         {
+            /**************************************************/
+            /*             carry-on (configuration)           */
+            /**************************************************/
+
+            TsaCli.WriteYellow($"Carry On: {configKey} (Configuration Class)");
+
             // validate
             var config = serviceProvider.GetService(configKey.Type);
 
@@ -59,20 +61,39 @@ public class TSA : ITSA
 
             foreach (var prop in properties)
             {
+                // attributes
                 var baggageAttr = prop.GetCustomAttribute<BaggageItemAttribute>();
-                //var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionString>();
+                var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionStringAttribute>();
+
+                /**************************************************/
+                /*          baggage item (property check)         */
+                /**************************************************/
 
                 if (carryOnAttr != null || baggageAttr != null)
                 {
+                    bool success = true;
+
                     var value = prop.GetValue(config);
 
-                    Console.WriteLine($"Property: {prop.Name}");
-                    Console.WriteLine($"  Value: {value}");
-                    if (carryOnAttr != null)
-                        Console.WriteLine("  Has [CarryOn]");
+                    var required = baggageAttr.IsRequired == true ? "Yes" : "No";
 
-                    if (baggageAttr != null)
-                        Console.WriteLine("  Has [BaggageItem]");
+                    if (baggageAttr.IsRequired == true && String.IsNullOrWhiteSpace(value.ToString()))
+                    {
+                        success = false;
+                    }
+
+                    // get icon
+                    string icon = "";
+
+                    if (success == false)
+                    {
+                        icon = TsaCli.Icons.Failure;
+                    } else
+                    {
+                        icon = TsaCli.Icons.Success;
+                    }
+
+                    TsaCli.WriteYellow($"{icon} Baggage Item: {prop.Name}, Required: {required}");
                 }
             }
         }

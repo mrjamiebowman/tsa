@@ -128,4 +128,21 @@ public static class TsaCli
 
         return selectedLine;
     }
+
+    public static class Icons
+    {
+        public const string Success = "✅";
+
+        public const string Warning = "⚠️";
+
+        public const string Failure = "❌";
+
+        public const string Pin = "📌";
+
+        public const string Wrench = "🔧";
+
+        public const string Camera = "📸";
+
+        public const string AirplaneLiftOff = "🛫";
+    }
 }

@@ -12,9 +12,7 @@ builder.Services.AddOpenApi();
 
 // configuration
 DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
-databaseConfiguration.ConnectionStringSampleApp = "connection-string";
-databaseConfiguration.ConnectionStringUsersDb = "";
-
+builder.Configuration.GetSection(DatabaseConfiguration.Position).Bind(databaseConfiguration);
 builder.Services.AddSingleton(databaseConfiguration);
 
 // tsa

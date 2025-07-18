@@ -8,11 +8,11 @@ public class DatabaseConfiguration
 {
     public const string Position = "Database";
 
-    [BaggageItem("SampleApp", "SampleApp Connection String", true)]
+    [BaggageItem("SampleApp Connection String", true)]
     [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
     public string? ConnectionStringSampleApp { get; set; }
 
-    [BaggageItem("UsersDb", "UsersDb Connection String", true)]
+    [BaggageItem("UsersDb Connection String", true)]
     [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
     public string? ConnectionStringUsersDb { get; set; }
 }
