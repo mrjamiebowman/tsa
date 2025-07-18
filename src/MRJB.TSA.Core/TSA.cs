@@ -48,7 +48,11 @@ public class TSA : ITSA
             /*             carry-on (configuration)           */
             /**************************************************/
 
-            TsaCli.WriteYellow($"Carry On: {configKey} (Configuration Class)");
+            var carryOn = new ConfigurationReport()
+            {
+                Name = configKey.ClassName,
+                Message = $"Carry On: {configKey} (Configuration Class)"
+            };
 
             // validate
             var config = serviceProvider.GetService(configKey.Type);
@@ -71,21 +75,24 @@ public class TSA : ITSA
 
                 if (carryOnAttr != null || baggageAttr != null)
                 {
-                    bool success = true;
-
                     var value = prop.GetValue(config);
-
                     var required = baggageAttr.IsRequired == true ? "Yes" : "No";
+
+                    var baggageItem = new ConfigurationPropertyReport()
+                    {
+                        Pass = true,
+                        Required = baggageAttr.IsRequired
+                    };
 
                     if (baggageAttr.IsRequired == true && String.IsNullOrWhiteSpace(value.ToString()))
                     {
-                        success = false;
+                        baggageItem.Pass = false;
                     }
 
                     // get icon
                     string icon = "";
 
-                    if (success == false)
+                    if (baggageItem.Pass == false)
                     {
                         icon = TsaCli.Icons.Failure;
                     } else
@@ -93,9 +100,15 @@ public class TSA : ITSA
                         icon = TsaCli.Icons.Success;
                     }
 
-                    TsaCli.WriteYellow($"{icon} Baggage Item: {prop.Name}, Required: {required}");
+                    baggageItem.Message = $"{icon} Baggage Item: {prop.Name}, Required: {required}";
+
+                    // baggage item
+                    carryOn.Properties.Add(baggageItem);
                 }
             }
+
+            // configuration
+            screeningReport.Configuration.Add(carryOn);
         }
 
         return screeningReport;

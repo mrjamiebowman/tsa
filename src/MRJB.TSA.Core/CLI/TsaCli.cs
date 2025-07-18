@@ -117,7 +117,17 @@ public static class TsaCli
             "Ma’am, you’re too calm for a 6 a.m. flight. Step over here. We need to know your secrets. And maybe your skincare routine.",
             "Sir, you’re wearing Gucci slides, a Rolex, and 17 gold chains… on Spirit Airlines. Just a quick check to make sure you’re not the plane's new owner.",
             "Sir, you said 'bomb' seven times while arguing with your mom on FaceTime. Just gonna go ahead and need you to follow us over here. Gently.",
-            "Sir, I get it — barefoot is freeing. But this is an airport, not a yoga retreat. Let’s talk about hygiene over here."
+            "Sir, I get it — barefoot is freeing. But this is an airport, not a yoga retreat. Let’s talk about hygiene over here.",
+            "Sir, your laptop has 47 open tabs, 3 mining scripts, and a crypto wallet. We're just gonna make sure it's not trying to fly itself.",
+            "Ma’am, you whispered something about lizard people and 5G at Gate 12. We’re just gonna check your carry-on for tinfoil hats.",
+            "Sir, you’ve been standing barefoot in security humming Jimmy Buffett songs for 30 minutes. Come with us before you start grilling.",
+            "Sir, the entire terminal heard your group chat read-aloud. We just want to know how your cousin’s rash turned out.",
+            "Ma’am, you’ve livestreamed every step of the TSA line. We just need a moment to sign the media release.",
+            "Young man, we counted 42 questions about plane crashes in 6 minutes. Let's take a break from Google, okay?",
+            "Sir, you loudly explained TSA procedure to 3 people and made up 12 rules. We’re just gonna ask you to stop helping.",
+            "Ma’am, your purse contains a rotisserie chicken, 3 pickles, and a whole melon. We admire your commitment to in-flight dining. Let’s chat.",
+            "Sir, you’re wearing snakeskin pants, sunglasses at night, and a cape. We’re not mad — we just want a selfie and a quick bag check.",
+            "Sir, when we asked if you packed your own bag, you whispered ‘define packed.’ Please step this way."
         };
 
         Random rnd = new Random();

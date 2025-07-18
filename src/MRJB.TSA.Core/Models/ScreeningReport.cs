@@ -15,14 +15,20 @@ public class ConfigurationReport
 
     public string? Name { get; set; }
 
-    public List<ConfigurationPropertyReports> Properties = new();
+    public string? Message { get; set; }
+
+    public List<ConfigurationPropertyReport> Properties = new();
 }
 
-public class ConfigurationPropertyReports
+public class ConfigurationPropertyReport
 {
     public string? Name { get; set; }
 
     public bool Pass { get; set; }
+
+    public string? Message { get; set; }
+
+    public bool? Required { get; set; }
 
     // TYPE (SQL, etc)
 

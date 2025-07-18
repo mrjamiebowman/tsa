@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // terrible settings auditor (tsa)
-app.UseTerribleSettingsAuditor(args);
+await app.UseTerribleSettingsAuditor(args);
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

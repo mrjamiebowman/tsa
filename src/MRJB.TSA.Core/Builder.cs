@@ -34,6 +34,12 @@ public static class Builder
         return services;
     }
 
+    /// <summary>
+    ///  Use Terrible Settings Auditor (TSA)
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
     public static async Task<IApplicationBuilder> UseTerribleSettingsAuditor(this IApplicationBuilder app, string[]? args = null)
     {
         ArgumentNullException.ThrowIfNull(app);
