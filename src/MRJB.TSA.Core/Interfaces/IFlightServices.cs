@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Interfaces;
+﻿namespace TerribleSettingsAuditor.Core.Interfaces;
 
 public interface IFlightServices
 {

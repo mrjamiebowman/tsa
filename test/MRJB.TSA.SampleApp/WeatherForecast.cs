@@ -1,4 +1,4 @@
-namespace MRJB.TSA.SampleApp
+namespace TerribleSettingsAuditor.SampleApp
 {
     public class WeatherForecast
     {

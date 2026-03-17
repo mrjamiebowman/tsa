@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using MRJB.TSA.Abstractions.Attribute;
-using MRJB.TSA.Core.CLI;
-using MRJB.TSA.Core.Interfaces;
-using MRJB.TSA.Core.Models;
 using System.Reflection;
+using TerribleSettingsAuditor.Abstractions.Attribute;
+using TerribleSettingsAuditor.Core.CLI;
+using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Models;
 
-namespace MRJB.TSA.Core;
+namespace TerribleSettingsAuditor.Core;
 
 public class TSA : ITSA
 {

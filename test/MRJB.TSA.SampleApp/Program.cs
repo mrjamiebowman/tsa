@@ -1,5 +1,5 @@
-using MRJB.TSA.Core;
-using MRJB.TSA.SampleApp.Configuration;
+using TerribleSettingsAuditor.Core;
+using TerribleSettingsAuditor.SampleApp.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +40,7 @@ app.MapControllers();
 try
 {
     await app.RunAsync();
-} catch (Exception ex)
+} catch (Exception)
 {
     throw;
 }

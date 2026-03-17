@@ -1,6 +1,6 @@
-﻿using MRJB.TSA.Core.Interfaces;
+﻿using TerribleSettingsAuditor.Core.Interfaces;
 
-namespace MRJB.TSA.Core.Services;
+namespace TerribleSettingsAuditor.Core.Services;
 
 public class FlightServices : IFlightServices
 {

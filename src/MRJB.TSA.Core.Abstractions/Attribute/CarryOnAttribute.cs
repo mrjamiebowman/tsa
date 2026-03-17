@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MRJB.TSA.Abstractions.Attribute;
+namespace TerribleSettingsAuditor.Abstractions.Attribute;
 
 #nullable enable
 

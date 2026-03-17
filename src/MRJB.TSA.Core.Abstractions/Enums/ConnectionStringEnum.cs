@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Abstractions.Enums;
+﻿namespace TerribleSettingsAuditor.Abstractions.Enums;
 
 public enum ConnectionStringEnum
 {

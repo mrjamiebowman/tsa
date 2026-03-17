@@ -1,8 +1,7 @@
-﻿using MRJB.TSA.Core;
-using MRJB.TSA.Core.Tests.Unit;
-using System.Reflection;
+﻿using System.Reflection;
+using TerribleSettingsAuditor.SampleApp;
 
-namespace Validation;
+namespace TerribleSettingsAuditor.Core.Tests.Unit.Validation;
 
 public class ValidationTest : BaseTsaTest
 {
@@ -15,7 +14,7 @@ public class ValidationTest : BaseTsaTest
             CancellationTokenSource cts = new();
 
             List<Assembly> assemblies = new List<Assembly>();
-            assemblies.Add(typeof(MRJB.TSA.SampleApp.Passport).Assembly);
+            assemblies.Add(typeof(Passport).Assembly);
 
             // logger
             var logger = GetLogger();

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace MRJB.TSA.SampleApp.Controllers
+namespace TerribleSettingsAuditor.SampleApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]

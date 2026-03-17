@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace MRJB.TSA.Core.Tests.Unit;
+namespace TerribleSettingsAuditor.Core.Tests.Unit;
 
 public abstract class BaseTsaTest
 {

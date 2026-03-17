@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Settings;
+﻿namespace TerribleSettingsAuditor.Core.Settings;
 
 /// <summary>
 ///  Terrible Settings Auditor (TSA) Settings.

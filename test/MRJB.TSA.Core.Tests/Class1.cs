@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Tests
+﻿namespace TerribleSettingsAuditor.Core.Tests
 {
     public class Class1
     {

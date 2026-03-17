@@ -1,7 +1,7 @@
-﻿using MRJB.TSA.Abstractions.Attribute;
-using MRJB.TSA.Abstractions.Enums;
+﻿using TerribleSettingsAuditor.Abstractions.Attribute;
+using TerribleSettingsAuditor.Abstractions.Enums;
 
-namespace MRJB.TSA.SampleApp.Configuration;
+namespace TerribleSettingsAuditor.SampleApp.Configuration;
 
 [CarryOn("Databases", "Database Connection strings", true)]
 public class DatabaseConfiguration

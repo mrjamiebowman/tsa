@@ -1,7 +1,7 @@
-﻿using MRJB.TSA.Core.Models;
-using System.Reflection;
+﻿using System.Reflection;
+using TerribleSettingsAuditor.Core.Models;
 
-namespace MRJB.TSA.Core.Interfaces;
+namespace TerribleSettingsAuditor.Core.Interfaces;
 
 public interface ITSA
 {

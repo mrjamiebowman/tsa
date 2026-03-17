@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Models;
+﻿namespace TerribleSettingsAuditor.Core.Models;
 
 #nullable enable
 

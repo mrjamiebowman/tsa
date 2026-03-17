@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core.Configuration;
+﻿namespace TerribleSettingsAuditor.Core.Configuration;
 
 public class TsaConfiguration
 {

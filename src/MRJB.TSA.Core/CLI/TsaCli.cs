@@ -1,6 +1,6 @@
-﻿using MRJB.TSA.Core.Models;
+﻿using TerribleSettingsAuditor.Core.Models;
 
-namespace MRJB.TSA.Core.CLI;
+namespace TerribleSettingsAuditor.Core.CLI;
 
 public static class TsaCli
 {

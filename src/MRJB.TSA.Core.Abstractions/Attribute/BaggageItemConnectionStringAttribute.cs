@@ -1,7 +1,7 @@
-﻿using MRJB.TSA.Abstractions.Enums;
-using System;
+﻿using System;
+using TerribleSettingsAuditor.Abstractions.Enums;
 
-namespace MRJB.TSA.Abstractions.Attribute;
+namespace TerribleSettingsAuditor.Abstractions.Attribute;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class BaggageItemConnectionStringAttribute : System.Attribute

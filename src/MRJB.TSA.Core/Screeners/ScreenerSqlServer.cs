@@ -1,6 +1,6 @@
-﻿using MRJB.TSA.Core.Interfaces;
+﻿using TerribleSettingsAuditor.Core.Interfaces;
 
-namespace MRJB.TSA.Core.Screeners;
+namespace TerribleSettingsAuditor.Core.Screeners;
 
 public class ScreenerSqlServer : IScreenerService
 {

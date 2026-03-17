@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core;
+﻿namespace TerribleSettingsAuditor.Core;
 
 public class OTel
 {

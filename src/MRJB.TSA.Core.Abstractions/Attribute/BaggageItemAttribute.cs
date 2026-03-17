@@ -1,6 +1,8 @@
 ﻿using System;
 
-namespace MRJB.TSA.Abstractions.Attribute;
+namespace TerribleSettingsAuditor.Abstractions.Attribute;
+
+#nullable enable
 
 [AttributeUsage(AttributeTargets.Property)]
 public class BaggageItemAttribute : System.Attribute
@@ -15,3 +17,5 @@ public class BaggageItemAttribute : System.Attribute
         IsRequired = isRequired;
     }
 }
+
+#nullable disable

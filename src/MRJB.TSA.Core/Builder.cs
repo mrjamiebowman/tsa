@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MRJB.TSA.Core.CLI;
-using MRJB.TSA.Core.Configuration;
-using MRJB.TSA.Core.Interfaces;
+using TerribleSettingsAuditor.Core.CLI;
+using TerribleSettingsAuditor.Core.Configuration;
+using TerribleSettingsAuditor.Core.Interfaces;
 
-namespace MRJB.TSA.Core;
+namespace TerribleSettingsAuditor.Core;
 
 public static class Builder
 {
