@@ -2,6 +2,8 @@
 
 namespace MRJB.TSA.Abstractions.Attribute;
 
+#nullable enable
+
 [AttributeUsage(AttributeTargets.Class)]
 public class CarryOnAttribute : System.Attribute
 {
@@ -23,3 +25,5 @@ public class CarryOnAttribute : System.Attribute
         Description = description;
     }
 }
+
+#nullable disable
