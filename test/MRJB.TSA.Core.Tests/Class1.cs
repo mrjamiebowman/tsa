@@ -1,4 +1,4 @@
-﻿namespace MRJB.TSA.Core
+﻿namespace MRJB.TSA.Core.Tests
 {
     public class Class1
     {

@@ -16,7 +16,7 @@ public class CarryOnAttribute : System.Attribute
         Name = name;
     }
 
-    public CarryOnAttribute(bool isRequired = false, string? name = null, string? description = null)
+    public CarryOnAttribute(string? name = null, string? description = null, bool isRequired = false)
     {
         IsRequired = isRequired;
         Name = name;

@@ -7,14 +7,11 @@ public class BaggageItemAttribute : System.Attribute
 {
     public bool IsRequired { get; set; }
 
-    public string? Name { get; set; }
-
     public string? Description { get; set; }
 
-    public BaggageItemAttribute(bool isRequired = false, string? name = null, string? description = null)
+    public BaggageItemAttribute(string? description = null, bool isRequired = false)
     {
-        IsRequired = isRequired;
-        Name = name;
         Description = description;
+        IsRequired = isRequired;
     }
 }
