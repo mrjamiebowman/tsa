@@ -42,8 +42,6 @@ public static class Builder
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseTerribleSettingsAuditor(this IApplicationBuilder app, string[]? args = null)
     {
-        ArgumentNullException.ThrowIfNull(app);
-        
         if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
         {
             return app;

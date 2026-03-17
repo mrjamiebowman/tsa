@@ -41,20 +41,9 @@ Boarding Pass – A signed token or manifest proving settings were checked and p
 🛫 Deploying sanitized config to Staging...
 ✅ Settings pushed successfully. You're cleared for takeoff. ✈️
 
-
 📦 Packaging
+TSA.Abstractions: Low-level package for attributes and configuration. (.NET Standard 2.0 for max compatibility)
+
 TSA.Core: Shared logic for config analysis.
 
-TSA.CLI: Command-line interface.
-
-TSA.WebUI: Optional dashboard.
-
-TSA.Extensions.Hosting: For embedding TSA in your app startup for auto-checks.
-
-🤪 Bonus Ideas
-Easter egg: If settings are particularly bad, show a message like:
-
-“This configuration has been flagged for further screening. Please step aside.”
-
-Add a tsa confiscate command to delete insecure or dangerous settings like exposed credentials or unencrypted keys.
-
+TSA.CLI: Command-line interface used in CI/CD pipelines.

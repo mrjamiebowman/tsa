@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MRJB.TSA.Core.Abstractions\MRJB.TSA.Abstractions.csproj" />
-    <ProjectReference Include="..\..\src\MRJB.TSA.Core\MRJB.TSA.Core.csproj" />
+    <ProjectReference Include="..\..\src\MRJB.TSA.Core.Abstractions\TerribleSettingsAuditor.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\MRJB.TSA.Core\TerribleSettingsAuditor.Core.csproj" />
   </ItemGroup>
 
 </Project>

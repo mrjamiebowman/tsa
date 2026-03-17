@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MRJB.TSA.SampleApp\MRJB.TSA.SampleApp.csproj" />
+    <ProjectReference Include="..\MRJB.TSA.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
   </ItemGroup>
 
 </Project>
