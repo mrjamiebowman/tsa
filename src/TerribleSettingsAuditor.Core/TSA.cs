@@ -2,6 +2,7 @@
 using System.Reflection;
 using TerribleSettingsAuditor.Abstractions.Attribute;
 using TerribleSettingsAuditor.Core.CLI;
+using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
 using TerribleSettingsAuditor.Core.Models;
 
@@ -54,10 +55,15 @@ public class TSA : ITSA
                 Message = $"Carry On: {configKey} (Configuration Class)"
             };
 
-            // validate
-            var config = serviceProvider.GetService(configKey.Type);
+            // resolve config class
+            var config = ConfigResolver.ResolveConfig(serviceProvider, configKey.Type);
 
-            var configType = config.GetType();
+            if (config == null)
+            {
+                // not found
+            }
+
+            var configType = config?.GetType();
             var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             // carry-on
@@ -76,15 +82,15 @@ public class TSA : ITSA
                 if (carryOnAttr != null || baggageAttr != null)
                 {
                     var value = prop.GetValue(config);
-                    var required = baggageAttr.IsRequired == true ? "Yes" : "No";
+                    var required = baggageAttr?.IsRequired == true ? "Yes" : "No";
 
                     var baggageItem = new ConfigurationPropertyReport()
                     {
                         Pass = true,
-                        Required = baggageAttr.IsRequired
+                        Required = baggageAttr?.IsRequired ?? false
                     };
 
-                    if (baggageAttr.IsRequired == true && String.IsNullOrWhiteSpace(value.ToString()))
+                    if (baggageAttr?.IsRequired == true && String.IsNullOrWhiteSpace(value.ToString()))
                     {
                         baggageItem.Pass = false;
                     }
