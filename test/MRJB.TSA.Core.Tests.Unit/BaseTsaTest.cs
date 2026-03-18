@@ -10,6 +10,7 @@ public abstract class BaseTsaTest
         {
             //builder.AddConsole(); // or AddDebug(), AddEventSourceLogger(), etc.
         });
+
         ILogger<TSA> logger = factory.CreateLogger<TSA>();
 
         return logger;

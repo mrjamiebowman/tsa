@@ -1,5 +1,5 @@
 ﻿namespace TerribleSettingsAuditor.SampleApp;
 
-public class Passport
+public sealed class AssemblyMarker
 {
 }

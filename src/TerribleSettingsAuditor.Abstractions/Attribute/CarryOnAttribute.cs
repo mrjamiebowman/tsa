@@ -4,6 +4,12 @@ namespace TerribleSettingsAuditor.Abstractions.Attribute;
 
 #nullable enable
 
+/// <summary>
+///  Terrible Settings Auditor (TSA), CarryOn
+/// </summary>
+/// <remarks>
+///  Apply this to configuration classes to track it.
+/// </remarks>
 [AttributeUsage(AttributeTargets.Class)]
 public class CarryOnAttribute : System.Attribute
 {

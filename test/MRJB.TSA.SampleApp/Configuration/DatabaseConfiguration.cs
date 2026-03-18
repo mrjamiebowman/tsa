@@ -6,6 +6,9 @@ namespace TerribleSettingsAuditor.SampleApp.Configuration;
 [CarryOn("Databases", "Database Connection strings", true)]
 public class DatabaseConfiguration
 {
+    /// <summary>
+    ///  Configuration Key. (i.e., Database:ConnectionStringSampleApp)
+    /// </summary>
     public const string Position = "Database";
 
     [BaggageItem("SampleApp Connection String", true)]

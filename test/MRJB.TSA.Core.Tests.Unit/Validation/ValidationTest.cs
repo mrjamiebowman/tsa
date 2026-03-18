@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using TerribleSettingsAuditor.SampleApp;
 
 namespace TerribleSettingsAuditor.Core.Tests.Unit.Validation;
 
@@ -14,7 +13,7 @@ public class ValidationTest : BaseTsaTest
             CancellationTokenSource cts = new();
 
             List<Assembly> assemblies = new List<Assembly>();
-            assemblies.Add(typeof(Passport).Assembly);
+            assemblies.Add(typeof(TerribleSettingsAuditor.SampleApp.AssemblyMarker).Assembly);
 
             // logger
             var logger = GetLogger();
@@ -22,7 +21,7 @@ public class ValidationTest : BaseTsaTest
             // tsa
             var tsa = new TSA(logger);
 
-            //// act
+            // act
             //var result = await tsa.ValidateAsync(app.ApplicationServices, assemblies.ToArray(), cts.Token);
 
             // assert

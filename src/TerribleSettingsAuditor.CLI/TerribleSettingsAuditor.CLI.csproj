@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MRJB.TSA.Core\TerribleSettingsAuditor.Core.csproj" />
+    <ProjectReference Include="..\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
   </ItemGroup>
 
 </Project>

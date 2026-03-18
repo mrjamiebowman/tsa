@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.13.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MRJB.TSA.Core.Abstractions\TerribleSettingsAuditor.Abstractions.csproj" />
-    <ProjectReference Include="..\..\src\MRJB.TSA.Core\TerribleSettingsAuditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="TerribleSettingsAuditor.Core.Tests.Unit" />
+    </ItemGroup>
 
 </Project>
