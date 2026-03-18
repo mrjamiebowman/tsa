@@ -16,14 +16,36 @@ TSA.CLI: Command-line interface used in CI/CD pipelines.
 
 --- 
 
-✈️ TSA Vocabulary
-No-Fly List – Settings that are banned (e.g., plaintext passwords, SA user, AllowAnyOrigin in CORS).
+### ✈️ TSA Vocabulary   
+We used creative names to distinguish our attributes.
 
-Carry-On – Configuration class the app can carry along.
+* Carry-On – Configuration class the app can carry along.
 
-Baggage-Item - Individual configuration property.
+* Baggage-Item - Individual configuration property.
 
+#### Sample Configuration
+TSA tracks your bags by using attributes. `[CarryOn]` applies to the classs and `[BaggageItem]` applies to the properties.
+
+```csharp
+[CarryOn("Databases", "Application settings", true)]
+public class ApplicationOptions
+{
+    /// <summary>
+    ///  Configuration Key. (i.e., Application:DebugMode)
+    /// </summary>
+    public const string Position = "Application";
+
+    public bool DebugMode { get; set; } = false;
+
+    [BaggageItem("Application Title", true)]
+    public string? Title { get; set; }
+
+    [BaggageItem("DoesntNeedToBeSet", false)]
+    public bool? DoesntNeedToBeSet { get; set; }
+}
 ```
+
+```bash
 > SampleApp.exe tsa --precheck   
 ✅ SQLConnectionString: Present   
 ⚠️ RedisCacheKey: Missing   

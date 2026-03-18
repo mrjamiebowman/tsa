@@ -4,6 +4,8 @@
 * Permissions - Clearance Check) - Ensures proper DB and system permissions are in place (like SQL roles, S3 access, etc).
 * Flight (Tarmac Pushback) - Push validated and authorized settings into flight — auto-configure environments or deploy settings.
 
+No-Fly List – Settings that are banned (e.g., plaintext passwords, SA user, AllowAnyOrigin in CORS).
+
 Gate Agent – The CLI or UI interface that handles audits.
 
 Flight Plan – A YAML or JSON settings file defining environments or deployment targets.
