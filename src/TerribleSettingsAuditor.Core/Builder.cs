@@ -83,8 +83,8 @@ public static class Builder
             Environment.Exit(1);
         }
 
-        // tsa: pre-check
-        if (args[0] == "tsa" && (args[1] == "--precheck" || args[1] == "--pre-check" || args[1] == "-pc"))
+        // tsa: scan
+        if (args[0] == "tsa" && (args[1] == "--screen" || args[1] == "-s"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var screeningReport = await tsa.PreCheckAsync(app.ApplicationServices, assemblies, cts.Token);
@@ -103,6 +103,4 @@ public static class Builder
 
         return app;
     }
-
-    // TODO: opentelemetry
 }

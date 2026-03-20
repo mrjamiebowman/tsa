@@ -2,7 +2,7 @@
 
 namespace TerribleSettingsAuditor.SampleApp.Configuration;
 
-[CarryOn("Databases", "Application settings", true)]
+[CarryOn("ApplicationOptions", "Application settings", true)]
 public class ApplicationOptions
 {
     /// <summary>

@@ -2,6 +2,7 @@
 
 namespace TerribleSettingsAuditor.SampleApp.Configuration;
 
+[CarryOn("BadConfiguration", "Bad Configuration", true)]
 public class BadConfiguration
 {
     /// <summary>

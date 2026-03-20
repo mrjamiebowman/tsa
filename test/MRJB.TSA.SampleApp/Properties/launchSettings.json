@@ -31,7 +31,7 @@
       },
       "commandLineArgs": "tsa --help"
     },
-    "tsa --precheck": {
+    "tsa --screen": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
@@ -39,7 +39,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "tsa --precheck"
+      "commandLineArgs": "tsa --screen"
     },
     "tsa --validate": {
       "commandName": "Project",

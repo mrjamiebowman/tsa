@@ -46,6 +46,7 @@ public static class TsaCli
     {
         Console.WriteLine("");
         WriteGreen("✈️ Terrible Settings Auditor (TSA)");
+        WriteGreen("Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.");
         ShowLogo();
         WriteYellow("https://github.com/mrjamiebowman/tsa");
         Console.WriteLine("");
@@ -62,8 +63,8 @@ public static class TsaCli
     {
         Console.WriteLine("✈️ Terrible Settings Auditor (TSA)");
         Console.WriteLine("tsa --help                Show help info");
-        Console.WriteLine("tsa --validate            Ensures all configuration and settings are valid.");
-        Console.WriteLine("tsa --generate-config     Creates a scaffolded tsa.json configuration file for TSA settings.");
+        Console.WriteLine("tsa --screen              Ensures all configuration and settings are present.");
+        //Console.WriteLine("tsa --generate-config     Creates a scaffolded tsa.json configuration file for TSA settings.");
         Console.WriteLine("tsa --joke                On the house — courtesy of your flight.");
     }
 
