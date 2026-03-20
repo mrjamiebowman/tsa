@@ -35,8 +35,11 @@ jobs:
       - name: Test
         run: dotnet test --configuration Release --no-build
 
+      - name: Set CI version
+        run: echo "PACKAGE_VERSION=1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+
       - name: Pack
-        run: dotnet pack $PROJECT_PATH --configuration Release --no-build --output ./artifacts
+        run: dotnet pack $PROJECT_PATH --configuration Release --no-build --output ./artifacts -p:PackageVersion=$PACKAGE_VERSION
 
       - name: Publish to NuGet.org
         run: dotnet nuget push "./artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
