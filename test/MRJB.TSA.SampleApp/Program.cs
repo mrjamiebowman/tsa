@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using TerribleSettingsAuditor.SampleApp.Configuration;
+using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,9 @@ builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection(
 
 // configuration (snapshot)
 builder.Services.Configure<BadConfiguration>(builder.Configuration.GetSection(BadConfiguration.Position));
+
+// library configuration (snapshot)
+builder.Services.Configure<LibraryConfiguration>(builder.Configuration.GetSection(LibraryConfiguration.Position));
 
 /****************************************/
 /*                tsa                   */

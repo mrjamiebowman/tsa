@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\TerribleSettingsAuditor.SampleApp.Domain\TerribleSettingsAuditor.SampleApp.Domain.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

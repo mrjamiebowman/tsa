@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tool", "tool", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample-app", "sample-app", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerribleSettingsAuditor.Core.Tests", "test\MRJB.TSA.Core.Tests\TerribleSettingsAuditor.Core.Tests.csproj", "{8FC0735D-D5BE-4EC9-A73D-FD89E9886F21}"
 EndProject
@@ -25,6 +25,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerribleSettingsAuditor.Abstractions", "src\TerribleSettingsAuditor.Abstractions\TerribleSettingsAuditor.Abstractions.csproj", "{FC77A8EB-C341-3026-376B-D95A5BCE9AE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerribleSettingsAuditor.Core", "src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj", "{6440DF3F-D208-10AE-659E-0E97845074E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerribleSettingsAuditor.SampleApp.Domain", "src\TerribleSettingsAuditor.SampleApp.Domain\TerribleSettingsAuditor.SampleApp.Domain.csproj", "{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{6440DF3F-D208-10AE-659E-0E97845074E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6440DF3F-D208-10AE-659E-0E97845074E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6440DF3F-D208-10AE-659E-0E97845074E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{5F3489F2-DC3F-6543-1DA6-E8E87611926C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FC77A8EB-C341-3026-376B-D95A5BCE9AE0} = {28370E86-DEDE-4C5E-8270-979C22BF59B4}
 		{6440DF3F-D208-10AE-659E-0E97845074E1} = {28370E86-DEDE-4C5E-8270-979C22BF59B4}
+		{1C86BF8A-9E20-457A-A25D-0A08F5B84C0D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1AF04B61-0D21-40B6-B431-197F0F6B4A05}
