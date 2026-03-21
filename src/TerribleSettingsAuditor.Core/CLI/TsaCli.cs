@@ -105,18 +105,23 @@ public static class TsaCli
         WriteGreen($" 👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
         Console.WriteLine("");
 
-        // configs
         foreach (var item in screeningReport.Configuration)
         {
             WriteYellow($"{Icons.Luggage} Carry On: {item.Name}, ({item.Namespace}).");
 
             foreach (var prop in item.Properties)
             {
-                //  ✅ Baggage Item: BlobStorage, Required: No
+                // ✅ Baggage Item: BlobStorage, Required: No
                 var icon = prop.Pass ? Icons.Success : Icons.Failure;
                 var required = (prop.Required ?? false) ? "Yes" : "No";
 
-                WriteYellow($"- {icon} {prop.Name}, (Required: {required})" + prop.Message);
+                string description = string.Empty;
+                if (!String.IsNullOrWhiteSpace(prop.Description))
+                {
+                    description = $", Description: {prop.Description}";
+                }
+
+                WriteYellow($" - {icon} {prop.Name}, Required: {required}{description}");
             }
 
             Console.WriteLine("");

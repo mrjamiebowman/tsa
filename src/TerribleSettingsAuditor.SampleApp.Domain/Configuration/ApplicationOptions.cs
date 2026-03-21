@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TerribleSettingsAuditor.Abstractions.Attribute;
 
-namespace TerribleSettingsAuditor.SampleApp.Configuration;
+namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 [CarryOn("ApplicationOptions", "Application settings", true)]
 public class ApplicationOptions

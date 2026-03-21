@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TerribleSettingsAuditor.Abstractions.Attribute;
 
-namespace TerribleSettingsAuditor.SampleApp.Configuration;
+namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 [CarryOn("BadConfiguration", "Bad Configuration", true)]
 public class BadConfiguration

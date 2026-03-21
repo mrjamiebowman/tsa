@@ -1,5 +1,4 @@
 using Scalar.AspNetCore;
-using TerribleSettingsAuditor.SampleApp.Configuration;
 using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,10 +30,9 @@ builder.Services.Configure<LibraryConfiguration>(builder.Configuration.GetSectio
 
 builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s =>
 {
-    s.PreCheck = true;
-    s.AbortPreCheckFailure = true;
+    s.Screen = true;
+    s.AbortScreenFailure = true;
 });
-
 
 var app = builder.Build();
 
@@ -42,7 +40,7 @@ var app = builder.Build();
 /*                tsa                   */
 /****************************************/
 
-await app.UseTerribleSettingsAuditor(args);
+await app.UseTerribleSettingsAuditorAsync(args);
 
 app.MapOpenApi();
 app.MapScalarApiReference();

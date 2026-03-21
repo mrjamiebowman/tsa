@@ -5,14 +5,14 @@ public class TsaConfiguration
     public const string Position = "TSA";
 
     /// <summary>
-    ///  This option verifies if the settings and configuration are present.
+    ///  This option screens configuration on startup.
     /// </summary>
-    public bool PreCheck { get; set; } = true;
+    public bool Screen { get; set; } = true;
 
     /// <summary>
     ///  Abort if Pre-Check Screening fails.
     /// </summary>
-    public bool AbortPreCheckFailure { get; set; } = true;
+    public bool AbortScreenFailure { get; set; } = true;
 
     /// <summary>
     ///  This is a Pre-Check and Validation where TSA will not only inspect 
@@ -23,6 +23,6 @@ public class TsaConfiguration
     /// <summary>
     ///  Abort validate failure.
     /// </summary>
-    public bool AbortValidateFailure { get; set; } = true;
+    public bool AbortValidationFailure { get; set; } = true;
 
 }

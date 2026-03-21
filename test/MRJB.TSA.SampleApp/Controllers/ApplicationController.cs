@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using TerribleSettingsAuditor.SampleApp.Configuration;
 using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 namespace TerribleSettingsAuditor.SampleApp.Controllers;

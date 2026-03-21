@@ -2,7 +2,7 @@
 using TerribleSettingsAuditor.Abstractions.Attribute;
 using TerribleSettingsAuditor.Abstractions.Enums;
 
-namespace TerribleSettingsAuditor.SampleApp.Configuration;
+namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 [CarryOn("Databases", "Database Connection strings", true)]
 public class DatabaseConfiguration

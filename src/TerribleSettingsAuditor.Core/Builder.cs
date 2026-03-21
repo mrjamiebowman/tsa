@@ -41,7 +41,7 @@ public static class Builder
     /// <param name="app"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public static async Task<IApplicationBuilder> UseTerribleSettingsAuditor(this IApplicationBuilder app, string[]? args = null)
+    public static async Task<IApplicationBuilder> UseTerribleSettingsAuditorAsync(this IApplicationBuilder app, string[]? args = null)
     {
         if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
         {
