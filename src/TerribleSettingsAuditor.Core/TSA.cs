@@ -50,13 +50,14 @@ public class TSA : ITSA
 
             var carryOn = new ConfigurationReport() {
                 Name = configKey.ClassName,
+                Namespace = configKey.Namespace
             };
 
             // resolve config class
             var config = ConfigResolver.ResolveConfig(serviceProvider, configKey.Type);
 
+            // not found
             if (config == null) {
-                // not found
                 throw new ArgumentNullException("Configuration class not found.");
             }
 

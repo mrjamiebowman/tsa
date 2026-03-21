@@ -46,6 +46,7 @@ public static class TsaCli
     {
         Console.WriteLine("");
         WriteGreen("✈️ Terrible Settings Auditor (TSA)");
+        WriteGreen(@"");
         WriteGreen("Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.");
         ShowLogo();
         WriteYellow("https://github.com/mrjamiebowman/tsa");
@@ -64,7 +65,7 @@ public static class TsaCli
         Console.WriteLine("✈️ Terrible Settings Auditor (TSA)");
         Console.WriteLine("tsa --help                Show help info");
         Console.WriteLine("tsa --screen              Ensures all configuration and settings are present.");
-        //Console.WriteLine("tsa --generate-config     Creates a scaffolded tsa.json configuration file for TSA settings.");
+        //Console.WriteLine("tsa --generate          Creates a scaffolded tsa.json configuration file for TSA settings.");
         Console.WriteLine("tsa --joke                On the house — courtesy of your flight.");
     }
 
@@ -107,10 +108,15 @@ public static class TsaCli
         // configs
         foreach (var item in screeningReport.Configuration)
         {
-            WriteYellow(" " + item.Message);
+            WriteYellow($"{Icons.Luggage} Carry On: {item.Name}, ({item.Namespace}).");
+
             foreach (var prop in item.Properties)
             {
-                WriteYellow("  " + prop.Message);
+                //  ✅ Baggage Item: BlobStorage, Required: No
+                var icon = prop.Pass ? Icons.Success : Icons.Failure;
+                var required = (prop.Required ?? false) ? "Yes" : "No";
+
+                WriteYellow($"- {icon} {prop.Name}, (Required: {required})" + prop.Message);
             }
 
             Console.WriteLine("");
@@ -155,6 +161,8 @@ public static class TsaCli
         public const string Warning = "⚠️";
 
         public const string Failure = "❌";
+
+        public const string Luggage = "🧳";
 
         public const string Pin = "📌";
 

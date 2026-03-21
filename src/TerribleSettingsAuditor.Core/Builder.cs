@@ -54,8 +54,6 @@ public static class Builder
         // unicode
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        // TODO: no banner arg, no joke
-
         // banner
         TsaCli.ShowBanner();
 
@@ -87,8 +85,13 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--screen" || args[1] == "-s"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            // screening report
             var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cts.Token);
+
+            // render report
             TsaCli.ShowReport(screeningReport);
+
             Environment.Exit(1);
         }
 
