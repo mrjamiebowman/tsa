@@ -5,7 +5,6 @@ using TerribleSettingsAuditor.Core;
 using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Configuration;
 using TerribleSettingsAuditor.Core.Interfaces;
-using TerribleSettingsAuditor.Core.Models;
 
 namespace Microsoft.Extensions.Hosting;
 
