@@ -27,6 +27,8 @@ public class TSA : ITSA
         // result
         var screeningReport = new ScreeningReport();
 
+        bool pass = true;
+
         // default screening settings
         ScreeningSettings screeningSettings = new ScreeningSettings();
 
@@ -47,6 +49,8 @@ public class TSA : ITSA
             /**************************************************/
             /*             carry-on (configuration)           */
             /**************************************************/
+
+            bool configPass = true;
 
             var carryOn = new ConfigurationReport() {
                 Name = configKey.ClassName,
@@ -93,6 +97,10 @@ public class TSA : ITSA
 
                 if (!result.Any()) {
                     passed = true;
+                } else
+                {
+                    pass = false;
+                    configPass = false;
                 }
 
                 // message
@@ -119,9 +127,15 @@ public class TSA : ITSA
                 carryOn.Properties.Add(baggageItem);
             }
 
+            // pass or fail
+            carryOn.Passed = configPass;
+
             // configuration
             screeningReport.Configuration.Add(carryOn);
         }
+
+        // pass or fail
+        screeningReport.Pass = pass;
 
         return screeningReport;
     }
