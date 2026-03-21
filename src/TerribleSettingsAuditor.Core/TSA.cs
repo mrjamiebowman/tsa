@@ -89,10 +89,10 @@ public class TSA : ITSA
                 // validate
                 var result = PropertyValidator.ValidateProperty(config, prop.Name);
 
-                bool pass = false;
+                bool passed = false;
 
                 if (!result.Any()) {
-                    pass = true;
+                    passed = true;
                 }
 
                 // required
@@ -103,7 +103,7 @@ public class TSA : ITSA
                     BaggageItem = baggageAttr != null ? true : false,
                     Name = prop.Name,
                     Description = baggageAttr?.Description ?? String.Empty,
-                    Pass = true,
+                    Pass = passed,
                     Message = "",
                     Required = required
                 };

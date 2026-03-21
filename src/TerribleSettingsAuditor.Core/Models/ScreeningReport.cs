@@ -11,7 +11,7 @@ public class ScreeningReport
 
 public class ConfigurationReport
 {
-    public bool Pass { get; set; }
+    public bool Passed { get; set; }
 
     public string? Name { get; set; }
 
