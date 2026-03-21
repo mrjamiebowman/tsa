@@ -95,6 +95,13 @@ public class TSA : ITSA
                     passed = true;
                 }
 
+                // message
+                string message = string.Join(
+                    ", ",
+                    result
+                        .Select(r => r.ErrorMessage)
+                        .Where(m => !string.IsNullOrWhiteSpace(m)));
+
                 // required
                 var required = PropertyValidator.IsRequired(prop) ? true : false;
 
@@ -104,7 +111,7 @@ public class TSA : ITSA
                     Name = prop.Name,
                     Description = baggageAttr?.Description ?? String.Empty,
                     Pass = passed,
-                    Message = "",
+                    Message = message,
                     Required = required
                 };
 

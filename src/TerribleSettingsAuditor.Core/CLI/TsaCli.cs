@@ -20,6 +20,14 @@ public static class TsaCli
         Console.ForegroundColor = previousColor;
     }
 
+    public static void WriteRed(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ForegroundColor = previousColor;
+    }
+
     public static void WriteError(string message)
     {
         var previousColor = Console.ForegroundColor;
@@ -122,6 +130,10 @@ public static class TsaCli
                 }
 
                 WriteYellow($" - {icon} {prop.Name}, Required: {required}{description}");
+
+                if (!String.IsNullOrWhiteSpace(prop.Message)) {
+                    WriteRed($" - {icon} Error: {prop.Message}");
+                }
             }
 
             Console.WriteLine("");
