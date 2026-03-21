@@ -17,12 +17,12 @@ public class TSA : ITSA
         _logger = logger;
     }
 
-    public Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default)
+    public Task<ScreeningReport> ScreenAsync(IServiceProvider serviceProvider, Assembly[] assemblies, CancellationToken cancellationToken = default)
     {
-        return PreCheckAsync(serviceProvider, assemblies, null, cancellationToken);
+        return ScreenAsync(serviceProvider, assemblies, null, cancellationToken);
     }
 
-    public async Task<ScreeningReport> PreCheckAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
+    public async Task<ScreeningReport> ScreenAsync(IServiceProvider serviceProvider, Assembly[] assemblies, Action<ScreeningSettings>? SsreeningSettingsAction = null, CancellationToken cancellationToken = default)
     {
         // result
         var screeningReport = new ScreeningReport();

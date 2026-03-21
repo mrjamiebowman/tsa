@@ -87,7 +87,7 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--screen" || args[1] == "-s"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var screeningReport = await tsa.PreCheckAsync(app.ApplicationServices, assemblies, cts.Token);
+            var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cts.Token);
             TsaCli.ShowReport(screeningReport);
             Environment.Exit(1);
         }
