@@ -1,4 +1,5 @@
-﻿using TerribleSettingsAuditor.Abstractions.Attribute;
+﻿using System.ComponentModel.DataAnnotations;
+using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Configuration;
 
@@ -12,9 +13,10 @@ public class ApplicationOptions
 
     public bool DebugMode { get; set; } = false;
 
-    [BaggageItem("Application Title", true)]
+    [BaggageItem("Application Title")]
+    [Required]
     public string? Title { get; set; }
 
-    [BaggageItem("DoesntNeedToBeSet", false)]
+    [BaggageItem("DoesntNeedToBeSet")]
     public bool? DoesntNeedToBeSet { get; set; }
 }

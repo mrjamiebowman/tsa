@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Reflection;
 using TerribleSettingsAuditor.Abstractions.Attribute;
-using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
 using TerribleSettingsAuditor.Core.Models;
@@ -49,68 +48,67 @@ public class TSA : ITSA
             /*             carry-on (configuration)           */
             /**************************************************/
 
-            var carryOn = new ConfigurationReport()
-            {
+            var carryOn = new ConfigurationReport() {
                 Name = configKey.ClassName,
-                Message = $"Carry On: {configKey} (Configuration Class)"
             };
 
             // resolve config class
             var config = ConfigResolver.ResolveConfig(serviceProvider, configKey.Type);
 
-            if (config == null)
-            {
+            if (config == null) {
                 // not found
+                throw new ArgumentNullException("Configuration class not found.");
             }
 
             var configType = config?.GetType();
-            var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             // carry-on
             var carryOnAttr = configType.GetCustomAttribute<CarryOnAttribute>();
 
+            // properties
+            var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            /**************************************************/
+            /*                   validation                   */
+            /**************************************************/
+
             foreach (var prop in properties)
             {
-                // attributes
-                var baggageAttr = prop.GetCustomAttribute<BaggageItemAttribute>();
-                var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionStringAttribute>();
-
                 /**************************************************/
                 /*          baggage item (property check)         */
                 /**************************************************/
 
-                if (carryOnAttr != null || baggageAttr != null)
-                {
-                    var value = prop.GetValue(config);
-                    var required = baggageAttr?.IsRequired == true ? "Yes" : "No";
+                var baggageAttr = prop.GetCustomAttribute<BaggageItemAttribute>();
+                var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionStringAttribute>();
 
-                    var baggageItem = new ConfigurationPropertyReport()
-                    {
-                        Pass = true,
-                        Required = baggageAttr?.IsRequired ?? false
-                    };
+                /**************************************************/
+                /*                  validation                    */
+                /**************************************************/
 
-                    if (baggageAttr?.IsRequired == true && String.IsNullOrWhiteSpace(value.ToString()))
-                    {
-                        baggageItem.Pass = false;
-                    }
+                // validate
+                var result = PropertyValidator.ValidateProperty(config, prop.Name);
 
-                    // get icon
-                    string icon = "";
+                bool pass = false;
 
-                    if (baggageItem.Pass == false)
-                    {
-                        icon = TsaCli.Icons.Failure;
-                    } else
-                    {
-                        icon = TsaCli.Icons.Success;
-                    }
-
-                    baggageItem.Message = $"{icon} Baggage Item: {prop.Name}, Required: {required}";
-
-                    // baggage item
-                    carryOn.Properties.Add(baggageItem);
+                if (!result.Any()) {
+                    pass = true;
                 }
+
+                // required
+                var required = PropertyValidator.IsRequired(prop) ? true : false;
+
+                // baggage item
+                var baggageItem = new ConfigurationPropertyReport() {
+                    BaggageItem = baggageAttr != null ? true : false,
+                    Name = prop.Name,
+                    Description = baggageAttr?.Description ?? String.Empty,
+                    Pass = true,
+                    Message = "",
+                    Required = required
+                };
+
+                // baggage item
+                carryOn.Properties.Add(baggageItem);
             }
 
             // configuration
@@ -184,7 +182,8 @@ public class TSA : ITSA
                 var configEntry = new ConfigurationEntry()
                 { 
                     Assembly = assembly.FullName,
-                    ClassName = type.FullName!,
+                    Namespace = type.Namespace,
+                    ClassName = type.Name!,
                     Type = type
                 };
 

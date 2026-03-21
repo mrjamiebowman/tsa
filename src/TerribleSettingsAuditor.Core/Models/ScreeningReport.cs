@@ -15,6 +15,8 @@ public class ConfigurationReport
 
     public string? Name { get; set; }
 
+    public string? Namespace { get; set; }
+
     public string? Message { get; set; }
 
     public List<ConfigurationPropertyReport> Properties = new();
@@ -22,15 +24,17 @@ public class ConfigurationReport
 
 public class ConfigurationPropertyReport
 {
+    public bool BaggageItem { get; set; }
+
     public string? Name { get; set; }
+
+    public string? Description { get; set; }
 
     public bool Pass { get; set; }
 
     public string? Message { get; set; }
 
     public bool? Required { get; set; }
-
-    // TYPE (SQL, etc)
 
     public string? Reason { get; set; }
 }

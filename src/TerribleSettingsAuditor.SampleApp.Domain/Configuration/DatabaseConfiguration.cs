@@ -1,4 +1,5 @@
-﻿using TerribleSettingsAuditor.Abstractions.Attribute;
+﻿using System.ComponentModel.DataAnnotations;
+using TerribleSettingsAuditor.Abstractions.Attribute;
 using TerribleSettingsAuditor.Abstractions.Enums;
 
 namespace TerribleSettingsAuditor.SampleApp.Configuration;
@@ -11,11 +12,13 @@ public class DatabaseConfiguration
     /// </summary>
     public const string Position = "Database";
 
-    [BaggageItem("SampleApp Connection String", true)]
+    [BaggageItem("SampleApp Connection String")]
     [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    [Required]
     public string? ConnectionStringSampleApp { get; set; }
 
-    [BaggageItem("UsersDb Connection String", true)]
+    [BaggageItem("UsersDb Connection String")]
     [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    [Required]
     public string? ConnectionStringUsersDb { get; set; }
 }

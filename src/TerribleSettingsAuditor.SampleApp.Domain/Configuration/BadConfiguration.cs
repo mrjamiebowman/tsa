@@ -1,4 +1,5 @@
-﻿using TerribleSettingsAuditor.Abstractions.Attribute;
+﻿using System.ComponentModel.DataAnnotations;
+using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Configuration;
 
@@ -10,6 +11,7 @@ public class BadConfiguration
     /// </summary>
     public const string Position = "Bad";
 
-    [BaggageItem("Bad Setting (Should fail)", true)]
+    [BaggageItem("Bad Setting (Should fail)")]
+    [Required]
     public bool? Baddie { get; set; }
 }

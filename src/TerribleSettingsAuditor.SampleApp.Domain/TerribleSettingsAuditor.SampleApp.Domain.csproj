@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TerribleSettingsAuditor.Abstractions\TerribleSettingsAuditor.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
