@@ -5,6 +5,7 @@ using TerribleSettingsAuditor.Core;
 using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Configuration;
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Models;
 
 namespace Microsoft.Extensions.Hosting;
 
@@ -61,7 +62,7 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
         {
             TsaCli.ShowHelp();
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
 
         // tsa
@@ -71,14 +72,14 @@ public static class Builder
         if (args[0] == "tsa" && (args[1] == "--generate-config" || args[1] == "-gc"))
         {
             TsaCli.WriteYellow("Generating TSA Config...");
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
 
         // tsa: joke
         if (args[0] == "tsa" && (args[1] == "--joke" || args[1] == "-j"))
         {
             TsaCli.GenerateJoke();
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
 
         // tsa: scan
@@ -92,7 +93,14 @@ public static class Builder
             // render report
             TsaCli.ShowReport(screeningReport);
 
-            Environment.Exit(1);
+            if (screeningReport.Pass == true)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
         }
 
         // tsa: validate
@@ -101,7 +109,15 @@ public static class Builder
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var screeningReport = await tsa.ValidateAsync(app.ApplicationServices, assemblies);
             TsaCli.ShowReport(screeningReport);
-            Environment.Exit(1);
+
+            if (screeningReport.Pass == true)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
         }
 
         return app;
