@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TerribleSettingsAuditor.Core;
 using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Configuration;
 using TerribleSettingsAuditor.Core.Interfaces;
 
-namespace Microsoft.Extensions.Hosting;
+namespace TerribleSettingsAuditor.Core;
 
 public static class Builder
 {

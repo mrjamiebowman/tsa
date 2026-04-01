@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
+using TerribleSettingsAuditor.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +23,24 @@ builder.Configuration
 //    .AddOptions<ApplicationOptions>()
 //    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
 //    .ValidateDataAnnotations()
-//    .ValidateOnStart();
+//    .ValidateOnStart()
+//;
 
 //builder.Services
 //    .AddOptions<BadConfiguration>()
 //    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
 //    .ValidateDataAnnotations()
 //    .ValidateOnStart();
+
+/****************************************/
+/*     tsa (not using attributes)       */
+/****************************************/
+
+builder.Services
+    .AddOptions<ApplicationOptions>()
+    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
+    .ValidateDataAnnotations()
+    .ValidateWithTsa();
 
 /****************************************/
 /*                tsa                   */
