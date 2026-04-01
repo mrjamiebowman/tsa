@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\TerribleSettingsAuditor.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
     <ProjectReference Include="..\MRJB.TSA.Core.Tests\TerribleSettingsAuditor.Core.Tests.csproj" />
     <ProjectReference Include="..\MRJB.TSA.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
   </ItemGroup>

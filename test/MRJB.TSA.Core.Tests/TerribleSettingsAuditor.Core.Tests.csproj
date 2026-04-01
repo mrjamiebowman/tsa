@@ -14,8 +14,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MRJB.TSA.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
-  </ItemGroup>
-
 </Project>
