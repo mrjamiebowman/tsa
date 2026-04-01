@@ -42,6 +42,12 @@ builder.Services
     .ValidateDataAnnotations()
     .ValidateWithTsa();
 
+builder.Services
+    .AddOptions<BadConfiguration>()
+    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
+    .ValidateDataAnnotations()
+    .ValidateWithTsa();
+
 /****************************************/
 /*                tsa                   */
 /****************************************/

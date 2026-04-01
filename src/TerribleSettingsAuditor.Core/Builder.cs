@@ -42,6 +42,9 @@ public static class Builder
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseTerribleSettingsAuditorAsync(this IApplicationBuilder app, string[]? args = null)
     {
+        var validator = app.ApplicationServices.GetRequiredService<ITsaConfigValidator>();
+        validator.Validate();
+
         if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
         {
             return app;
