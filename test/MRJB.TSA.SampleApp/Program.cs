@@ -81,6 +81,10 @@ var app = builder.Build();
 /*                tsa                   */
 /****************************************/
 
+// uses the pipeline to validate settings and show the results in a screen if there are any issues.
+// If there are issues and AbortScreenFailure is true then the app will exit with a non-zero exit code.
+// If there are no issues or if ScreenOnStartup is false then this will do nothing.
+// CLI commands always win over settings.
 await app.UseTerribleSettingsAuditorAsync(args);
 
 app.MapOpenApi();
