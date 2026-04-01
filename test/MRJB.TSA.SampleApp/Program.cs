@@ -70,8 +70,8 @@ builder.Services.Configure<LibraryConfiguration>(builder.Configuration.GetSectio
 /*                tsa                   */
 /****************************************/
 
-builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s => {
-    s.Screen = true;
+builder.AddTerribleSettingsAuditor(s => {
+    s.ScreenOnStartup = true;
     s.AbortScreenFailure = true;
 });
 

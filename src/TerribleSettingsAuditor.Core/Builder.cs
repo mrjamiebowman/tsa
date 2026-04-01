@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Configuration;
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Validators;
 
 namespace TerribleSettingsAuditor.Core;
 
@@ -15,23 +19,23 @@ public static class Builder
     /// <param name="services"></param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    public static IServiceCollection AddTerribleSettingsAuditor(this IServiceCollection services, IConfiguration configuration, Action<TsaConfiguration>? tsaSettings = default)
+    public static TBuilder AddTerribleSettingsAuditor<TBuilder>(this TBuilder builder, Action<TsaConfiguration>? tsaSettings = default) where TBuilder : IHostApplicationBuilder
     {
         // configuration
         TsaConfiguration tsaConfiguration = new TsaConfiguration();
-        configuration.GetSection(TsaConfiguration.Position).Bind(tsaConfiguration);
+        builder.Configuration.GetSection(TsaConfiguration.Position).Bind(tsaConfiguration);
 
         if (tsaSettings != null)
         {
             tsaSettings.Invoke(tsaConfiguration);
         }
 
-        services.AddSingleton(tsaConfiguration);
+        builder.Services.AddSingleton(tsaConfiguration);
 
         // services
-        services.AddTransient<ITSA, TSA>();
+        builder.Services.AddTransient<ITSA, TSA>();
 
-        return services;
+        return builder;
     }
 
     /// <summary>
@@ -42,11 +46,17 @@ public static class Builder
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseTerribleSettingsAuditorAsync(this IApplicationBuilder app, string[]? args = null)
     {
-        var validator = app.ApplicationServices.GetRequiredService<ITsaConfigValidator>();
-        validator.Validate();
+        //var validator = app.ApplicationServices.GetRequiredService<ITsaConfigValidator>();
+        //validator.Validate();
 
-        if (args == null || args.Length == 0 || args?.Contains("tsa") == false)
+        // tsa configuration
+        TsaConfiguration tsaConfiguration = app.ApplicationServices.GetRequiredService<TsaConfiguration>();
+
+        if (
+            (tsaConfiguration.ScreenOnStartup == false)
+            && (args == null || args.Length == 0 || args?.Contains("tsa") == false))
         {
+            // if we aren't validating on startup and we don't have a tsa argument then return...
             return app;
         }
 
@@ -94,33 +104,52 @@ public static class Builder
             // render report
             TsaCli.ShowReport(screeningReport);
 
-            if (screeningReport.Pass == true)
+            if (tsaConfiguration.AbortScreenFailure == false || screeningReport.Pass == true)
             {
+                // success
                 Environment.Exit(0);
             }
             else
             {
+                // fail
                 Environment.Exit(1);
             }
         }
 
-        // tsa: validate
-        if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var screeningReport = await tsa.ValidateAsync(app.ApplicationServices, assemblies);
-            TsaCli.ShowReport(screeningReport);
+        //// tsa: validate
+        //if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))
+        //{
+        //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        //    var screeningReport = await tsa.ValidateAsync(app.ApplicationServices, assemblies);
+        //    TsaCli.ShowReport(screeningReport);
 
-            if (screeningReport.Pass == true)
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                Environment.Exit(1);
-            }
-        }
+        //    if (tsaConfiguration.AbortValidationFailure == false || screeningReport.Pass == true)
+        //    {
+        //        Environment.Exit(0);
+        //    }
+        //    else
+        //    {
+        //        Environment.Exit(1);
+        //    }
+        //}
 
         return app;
+    }
+
+    public static OptionsBuilder<TOptions> ValidateWithTsa<TOptions>(this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class
+    {
+        if (optionsBuilder == null) throw new ArgumentNullException(nameof(optionsBuilder));
+
+        optionsBuilder.Services.TryAddTransient<ITsaConfigValidator, TsaConfigValidator>();
+
+        optionsBuilder.Services.AddOptions<TsaValidatorOptions>()
+            .Configure<IOptionsMonitor<TOptions>>((vo, options) =>
+            {
+                // This adds an action that resolves the options value to force evaluation
+                // We don't care about the result as duplicates are not important
+                vo._validators[(typeof(TOptions), optionsBuilder.Name)] = () => options.Get(optionsBuilder.Name);
+            });
+
+        return optionsBuilder;
     }
 }
