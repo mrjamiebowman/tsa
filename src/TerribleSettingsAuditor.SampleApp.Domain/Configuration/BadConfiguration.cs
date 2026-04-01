@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[CarryOn("BadConfiguration", "Bad Configuration", true)]
+[Luggage("BadConfiguration", "Bad Configuration", true)]
 public class BadConfiguration
 {
     /// <summary>
@@ -11,7 +11,7 @@ public class BadConfiguration
     /// </summary>
     public const string Position = "Bad";
 
-    [BaggageItem("Bad Setting (Should fail)")]
+    [LuggageItem("Bad Setting (Should fail)")]
     [Required]
     public bool? Baddie { get; set; }
 }

@@ -68,7 +68,7 @@ public class TSA : ITSA
             var configType = config?.GetType();
 
             // carry-on
-            var carryOnAttr = configType.GetCustomAttribute<CarryOnAttribute>();
+            var carryOnAttr = configType.GetCustomAttribute<LuggageAttribute>();
 
             // properties
             var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -83,8 +83,8 @@ public class TSA : ITSA
                 /*          baggage item (property check)         */
                 /**************************************************/
 
-                var baggageAttr = prop.GetCustomAttribute<BaggageItemAttribute>();
-                var baggageAttrConnectionString = prop.GetCustomAttribute<BaggageItemConnectionStringAttribute>();
+                var baggageAttr = prop.GetCustomAttribute<LuggageItemAttribute>();
+                var baggageAttrConnectionString = prop.GetCustomAttribute<LuggageItemConnectionStringAttribute>();
 
                 /**************************************************/
                 /*                  validation                    */
@@ -194,7 +194,7 @@ public class TSA : ITSA
             }
 
             var typesWithAttribute = assembly.GetTypes()
-                                             .Where(t => t.IsClass && t.GetCustomAttribute<CarryOnAttribute>() != null);
+                                             .Where(t => t.IsClass && t.GetCustomAttribute<LuggageAttribute>() != null);
 
             foreach (var type in typesWithAttribute)
             {
