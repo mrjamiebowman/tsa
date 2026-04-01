@@ -6,18 +6,18 @@ namespace TerribleSettingsAuditor.Abstractions.Attribute;
 ///  BagggeCart, is used to generate configuration files.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class BaggageCart : System.Attribute
+public class LuggageCart : System.Attribute
 {
     public string Name { get; set; }
 
     public string DefaultFileName { get; set; } = "appsettings.tsa.json";
 
-    public BaggageCart(string name)
+    public LuggageCart(string name)
     {
         Name = name;
     }
 
-    public BaggageCart(string name, string fileName)
+    public LuggageCart(string name, string fileName)
     {
         Name = name;
         DefaultFileName = fileName;

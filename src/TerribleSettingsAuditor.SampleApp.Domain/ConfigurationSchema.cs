@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain;
 
-[BaggageCart("appsettings")]
+[LuggageCart("appsettings")]
 public class ConfigurationSchema
 {
     public ApplicationOptions? ApplicationOptions { get; set; }
