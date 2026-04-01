@@ -16,8 +16,8 @@ builder.Configuration
     .AddUserSecrets<Program>(optional: true)
     .AddEnvironmentVariables();
 
-// this is one way to validate configuration but it only validates on run...
-// if we want to see this in a CI/CD pipeline then TSA is the way to go!
+////// this is one way to validate configuration but it only validates on run...
+////// if we want to see this in a CI/CD pipeline then TSA is the way to go!
 //builder.Services
 //    .AddOptions<ApplicationOptions>()
 //    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
