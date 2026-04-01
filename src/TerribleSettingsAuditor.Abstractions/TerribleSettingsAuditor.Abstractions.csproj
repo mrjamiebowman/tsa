@@ -5,4 +5,8 @@
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using TerribleSettingsAuditor.SampleApp.Domain.Configuration;
+using TerribleSettingsAuditor.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +23,30 @@ builder.Configuration
 //    .AddOptions<ApplicationOptions>()
 //    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
 //    .ValidateDataAnnotations()
-//    .ValidateOnStart();
+//    .ValidateOnStart()
+//;
 
 //builder.Services
 //    .AddOptions<BadConfiguration>()
 //    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
 //    .ValidateDataAnnotations()
 //    .ValidateOnStart();
+
+/****************************************/
+/*     tsa (not using attributes)       */
+/****************************************/
+
+builder.Services
+    .AddOptions<ApplicationOptions>()
+    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
+    .ValidateDataAnnotations()
+    .ValidateWithTsa();
+
+builder.Services
+    .AddOptions<BadConfiguration>()
+    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
+    .ValidateDataAnnotations()
+    .ValidateWithTsa();
 
 /****************************************/
 /*                tsa                   */
@@ -52,8 +70,8 @@ builder.Services.Configure<LibraryConfiguration>(builder.Configuration.GetSectio
 /*                tsa                   */
 /****************************************/
 
-builder.Services.AddTerribleSettingsAuditor(builder.Configuration, s => {
-    s.Screen = true;
+builder.AddTerribleSettingsAuditor(s => {
+    s.ScreenOnStartup = true;
     s.AbortScreenFailure = true;
 });
 
@@ -63,6 +81,10 @@ var app = builder.Build();
 /*                tsa                   */
 /****************************************/
 
+// uses the pipeline to validate settings and show the results in a screen if there are any issues.
+// If there are issues and AbortScreenFailure is true then the app will exit with a non-zero exit code.
+// If there are no issues or if ScreenOnStartup is false then this will do nothing.
+// CLI commands always win over settings.
 await app.UseTerribleSettingsAuditorAsync(args);
 
 app.MapOpenApi();
