@@ -4,7 +4,7 @@ using TerribleSettingsAuditor.Abstractions.Enums;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[CarryOn("Databases", "Database Connection strings", true)]
+[Luggage("Databases", "Database Connection strings", true)]
 public class DatabaseConfiguration
 {
     /// <summary>
@@ -12,13 +12,13 @@ public class DatabaseConfiguration
     /// </summary>
     public const string Position = "Database";
 
-    [BaggageItem("SampleApp Connection String")]
-    [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    [LuggageItem("SampleApp Connection String")]
+    [LuggageItemConnectionString(ConnectionStringEnum.SqlServer)]
     [Required]
     public string? ConnectionStringSampleApp { get; set; }
 
-    [BaggageItem("UsersDb Connection String")]
-    [BaggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    [LuggageItem("UsersDb Connection String")]
+    [LuggageItemConnectionString(ConnectionStringEnum.SqlServer)]
     [Required]
     public string? ConnectionStringUsersDb { get; set; }
 }
