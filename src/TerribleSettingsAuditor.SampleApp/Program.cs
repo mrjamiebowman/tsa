@@ -36,17 +36,17 @@ builder.Configuration
 /*     tsa (not using attributes)       */
 /****************************************/
 
-builder.Services
-    .AddOptions<ApplicationOptions>()
-    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
-    .ValidateDataAnnotations()
-    .ValidateWithTsa();
+//builder.Services
+//    .AddOptions<ApplicationOptions>()
+//    .Bind(builder.Configuration.GetSection(ApplicationOptions.Position))
+//    .ValidateDataAnnotations()
+//    .ValidateWithTsa();
 
-builder.Services
-    .AddOptions<BadConfiguration>()
-    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
-    .ValidateDataAnnotations()
-    .ValidateWithTsa();
+//builder.Services
+//    .AddOptions<BadConfiguration>()
+//    .Bind(builder.Configuration.GetSection(BadConfiguration.Position))
+//    .ValidateDataAnnotations()
+//    .ValidateWithTsa();
 
 /****************************************/
 /*                tsa                   */

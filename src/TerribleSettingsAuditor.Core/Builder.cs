@@ -13,6 +13,8 @@ namespace TerribleSettingsAuditor.Core;
 
 public static class Builder
 {
+    private static TsaConfiguration? TsaConfiguration { get; set; }
+
     /// <summary>
     ///  Add Terrible Settings Auditor (TSA)
     /// </summary>
@@ -24,6 +26,7 @@ public static class Builder
         // configuration
         TsaConfiguration tsaConfiguration = new TsaConfiguration();
         builder.Configuration.GetSection(TsaConfiguration.Position).Bind(tsaConfiguration);
+        TsaConfiguration = tsaConfiguration;
 
         if (tsaSettings != null)
         {
@@ -52,22 +55,65 @@ public static class Builder
         // tsa configuration
         TsaConfiguration tsaConfiguration = app.ApplicationServices.GetRequiredService<TsaConfiguration>();
 
-        if (
-            (tsaConfiguration.ScreenOnStartup == false)
-            && (args == null || args.Length == 0 || args?.Contains("tsa") == false))
-        {
-            // if we aren't validating on startup and we don't have a tsa argument then return...
-            return app;
-        }
-
         // cts
         CancellationTokenSource cts = new CancellationTokenSource();
 
         // unicode
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+        // cli
+        await ProcessCliCommandsAsync(app, args, cts.Token);
+
+        // process config
+        await ProcessAsync(app, args, cts.Token);
+
+        return app;
+    }
+
+    private static async Task ProcessAsync(IApplicationBuilder app, string[]? args = null, CancellationToken cancellationToken = default)
+    {
+        // configuration
+        TsaConfiguration tsaConfiguration = app.ApplicationServices.GetRequiredService<TsaConfiguration>();
+
+        if (tsaConfiguration.ScreenOnStartup == false)
+        {
+            return;
+        }
+
         // banner
         TsaCli.ShowBanner();
+
+        // tsa
+        var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
+
+        // tsa: screen
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+        // screening report
+        var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
+
+        // render report
+        TsaCli.ShowReport(screeningReport);
+        
+        // cli: ci/cd
+        if (screeningReport.Pass == false && tsaConfiguration.AbortScreenFailure == true)
+        {
+            // fail
+            Environment.Exit(1);
+        }
+    }
+
+    private static async Task ProcessCliCommandsAsync(IApplicationBuilder app, string[]? args = null, CancellationToken cancellationToken = default)
+    {
+        if (
+            (args == null || args.Length == 0 || args?.Contains("tsa") == false))
+        {
+            // if we aren't validating on startup and we don't have a tsa argument then return...
+            return;
+        }
+
+        // tsa
+        var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
 
         // help
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
@@ -75,9 +121,6 @@ public static class Builder
             TsaCli.ShowHelp();
             Environment.Exit(0);
         }
-
-        // tsa
-        var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
 
         // tsa: generate config
         if (args[0] == "tsa" && (args[1] == "--generate-config" || args[1] == "-gc"))
@@ -93,26 +136,38 @@ public static class Builder
             Environment.Exit(0);
         }
 
-        // tsa: scan
+        // tsa: screen
         if (args[0] == "tsa" && (args[1] == "--screen" || args[1] == "-s"))
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
+            // abort
+            bool cliNoAbort = args.Contains("--no-abort");
+
             // screening report
-            var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cts.Token);
+            var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
 
             // render report
             TsaCli.ShowReport(screeningReport);
 
-            if (tsaConfiguration.AbortScreenFailure == false || screeningReport.Pass == true)
+            if (cliNoAbort)
             {
-                // success
-                Environment.Exit(0);
+                // return app or this will stop execution.
+                return;
             }
             else
             {
-                // fail
-                Environment.Exit(1);
+                // cli: ci/cd
+                if (screeningReport.Pass == true)
+                {
+                    // success
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    // fail
+                    Environment.Exit(1);
+                }
             }
         }
 
@@ -132,8 +187,6 @@ public static class Builder
         //        Environment.Exit(1);
         //    }
         //}
-
-        return app;
     }
 
     public static OptionsBuilder<TOptions> ValidateWithTsa<TOptions>(this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class

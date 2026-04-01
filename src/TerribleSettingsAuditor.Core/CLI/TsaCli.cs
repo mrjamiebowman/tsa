@@ -115,7 +115,7 @@ public static class TsaCli
 
         foreach (var item in screeningReport.Configuration)
         {
-            WriteYellow($"{Icons.Luggage} Carry On: {item.Name}, ({item.Namespace}).");
+            WriteYellow($"{Icons.Luggage} Luggage: {item.Name}, ({item.Namespace}).");
 
             foreach (var prop in item.Properties)
             {
