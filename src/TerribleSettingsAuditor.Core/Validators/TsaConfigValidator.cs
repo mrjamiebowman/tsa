@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Runtime.ExceptionServices;
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Models;
 
 namespace TerribleSettingsAuditor.Core.Validators;
 
@@ -13,37 +14,35 @@ public class TsaConfigValidator : ITsaConfigValidator
         _validatorOptions = validators.Value;
     }
 
-    public void Validate()
+    public Task<List<ConfigurationReport>> ValidateAsync()
     {
+        List<ConfigurationReport> configReports = new List<ConfigurationReport>();
         List<Exception>? exceptions = null;
 
-        foreach (Action validator in _validatorOptions._validators.Values)
+        foreach (TsaValidatorRegistration validatorRegistration in _validatorOptions._validators.Values)
         {
+            var configurationReport = new ConfigurationReport();
+
             try
             {
-                // Execute the validation method and catch the validation error
-                validator();
+                // configuration report
+                configurationReport.Name = validatorRegistration.Name;
+                configurationReport.ConfigurationType = validatorRegistration.MonitorType;
+
+                var resolvedValue = validatorRegistration.Resolver();
+
+                configurationReport.Passed = true;
             }
             catch (OptionsValidationException ex)
             {
                 exceptions ??= new();
                 exceptions.Add(ex);
+            } finally
+            {
+                configReports.Add(configurationReport);
             }
         }
 
-        if (exceptions != null)
-        {
-            if (exceptions.Count == 1)
-            {
-                // Rethrow if it's a single error
-                ExceptionDispatchInfo.Capture(exceptions[0]).Throw();
-            }
-
-            if (exceptions.Count > 1)
-            {
-                // Aggregate if we have many errors
-                throw new AggregateException(exceptions);
-            }
-        }
+        return Task.FromResult(configReports);
     }
 }

@@ -2,5 +2,5 @@
 
 public class TsaValidatorOptions
 {
-    public Dictionary<(Type, string), Action> _validators { get; } = new Dictionary<(Type, string), Action>();
+    public Dictionary<(Type OptionsType, string Name), TsaValidatorRegistration> _validators { get; } = new();
 }

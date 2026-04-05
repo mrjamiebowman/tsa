@@ -37,6 +37,7 @@ public static class Builder
 
         // services
         builder.Services.AddTransient<ITSA, TSA>();
+        builder.Services.TryAddTransient<ITsaConfigValidator, TsaConfigValidator>();
 
         return builder;
     }
@@ -49,9 +50,6 @@ public static class Builder
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseTerribleSettingsAuditorAsync(this IApplicationBuilder app, string[]? args = null)
     {
-        //var validator = app.ApplicationServices.GetRequiredService<ITsaConfigValidator>();
-        //validator.Validate();
-
         // tsa configuration
         TsaConfiguration tsaConfiguration = app.ApplicationServices.GetRequiredService<TsaConfiguration>();
 
@@ -111,6 +109,9 @@ public static class Builder
             // if we aren't validating on startup and we don't have a tsa argument then return...
             return;
         }
+
+        // banner
+        TsaCli.ShowBanner();
 
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
@@ -193,14 +194,18 @@ public static class Builder
     {
         if (optionsBuilder == null) throw new ArgumentNullException(nameof(optionsBuilder));
 
-        optionsBuilder.Services.TryAddTransient<ITsaConfigValidator, TsaConfigValidator>();
-
         optionsBuilder.Services.AddOptions<TsaValidatorOptions>()
             .Configure<IOptionsMonitor<TOptions>>((vo, options) =>
             {
-                // This adds an action that resolves the options value to force evaluation
-                // We don't care about the result as duplicates are not important
-                vo._validators[(typeof(TOptions), optionsBuilder.Name)] = () => options.Get(optionsBuilder.Name);
+                var tsaRegistration = new TsaValidatorRegistration()
+                {
+                    Resolver = () => options.Get(optionsBuilder.Name),
+                    OptionsType = typeof(TOptions),
+                    MonitorType = options.GetType(),
+                    Name = optionsBuilder.Name
+                };
+
+                vo._validators[(typeof(TOptions), optionsBuilder.Name)] = tsaRegistration;
             });
 
         return optionsBuilder;
