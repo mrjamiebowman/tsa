@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("ApplicationOptions", "Application settings", true)]
+[Luggage("Application Settings")]
 public class ApplicationOptions
 {
     /// <summary>

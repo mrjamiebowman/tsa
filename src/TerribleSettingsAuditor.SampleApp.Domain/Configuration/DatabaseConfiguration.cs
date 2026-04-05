@@ -4,7 +4,7 @@ using TerribleSettingsAuditor.Abstractions.Enums;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("Databases", "Database Connection strings", true)]
+[Luggage("Database Connection strings")]
 public class DatabaseConfiguration
 {
     /// <summary>
