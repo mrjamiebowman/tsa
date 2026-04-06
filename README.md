@@ -1,5 +1,8 @@
 # ✈️  Terrible Settings Auditor (TSA)
+
 "We screen your app settings before they crash on takeoff."
+
+Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.   
 
 An open-source modern .NET tool that audits, validates your application's configuration and environment — all with TSA-grade scrutiny.
 
@@ -27,7 +30,7 @@ We used creative names to distinguish our attributes.
 TSA tracks your bags by using attributes. `[CarryOn]` applies to the classs and `[BaggageItem]` applies to the properties.
 
 ```csharp
-[CarryOn("Databases", "Application settings", true)]
+[CarryOn("Databases", "Application settings")]
 public class ApplicationOptions
 {
     /// <summary>
@@ -37,10 +40,10 @@ public class ApplicationOptions
 
     public bool DebugMode { get; set; } = false;
 
-    [BaggageItem("Application Title", true)]
+    [BaggageItem("Application Title")]
     public string? Title { get; set; }
 
-    [BaggageItem("DoesntNeedToBeSet", false)]
+    [BaggageItem("DoesntNeedToBeSet")]
     public bool? DoesntNeedToBeSet { get; set; }
 }
 ```
