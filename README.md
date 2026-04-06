@@ -9,7 +9,9 @@ An open-source modern .NET tool that audits, validates your application's config
 Let's start with how modern .NET handles configuration to understand where this tool steps in.
 
 ### Modern .NET's Configuration Store
-Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys. Verifying the individual sources alone doesn't always proove that the configuration is correct.
+Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys. 
+
+**Verifying the individual sources alone doesn't always proove that the configuration is correct when the application runs.**
 
 ```mermaid
 flowchart LR
@@ -48,7 +50,7 @@ This is great, and we want this tool to pair well with this process. However, th
 We see the missing piece here as being able to run configuration validation ("screening") on demand against any environment, generate reports, and output that to a command prompt or CI/CD pipeline.   
 
 #### Additional Features
-Our developer tool should also helps fascilitate with viewing and generating configuration schema.
+Work in progress... but we want to extend this to generate schemas and do even more!
 
 
 ## 📦 NuGet Packages
@@ -65,7 +67,7 @@ We used creative names to distinguish our attributes.
 
 * Baggage – Configuration class the app can carry along.
 
-* BaggageItem - Individual configuration property.
+* BaggageItem - Individual configuration property. Can be used to identify secrets.
 
 ## Sample
 It's very simple to set up. 
@@ -107,8 +109,7 @@ builder.AddTerribleSettingsAuditor(s => {
 var app = builder.Build();
 
 // tsa
-await ;app.UseTerribleSettingsAuditorAsync(args)
-
+await app.UseTerribleSettingsAuditorAsync(args)
 ```
 
 #### AddTerribleSettingsAuditor()
