@@ -1,15 +1,15 @@
-# Terrible Settings Auditor
+# Terrible Settings Auditor (TSA)
 Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.   
-
-"We screen your app settings before they crash on takeoff."
 
 An open-source modern .NET tool that audits, validates your application's configuration and environment.
 
-## How does it work?
+"We screen your app settings before they crash on takeoff."
+
+## 🛠️ How does it work?
 Let's start with how modern .NET handles configuration to understand where this tool steps in.
 
 ### Modern .NET's Configuration Store
-Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys.
+Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys. Verifying the individual sources alone doesn't always proove that the configuration is correct.
 
 ```mermaid
 flowchart LR
@@ -40,10 +40,15 @@ This is great, and we want this tool to pair well with this process. However, th
 
 #### Disadvantages
 - Runs on Startup (past deployment gates)
+- In a failed state, blocks startup with errors.
 - Doesn't run on demand.
 - Isn't CI/CD pipeline friendly.
 
-## How Terrible Settings Auditor Works
+### Our Solution
+We see the missing piece here as being able to run configuration validation ("screening") on demand against any environment, generate reports, and output that to a command prompt or CI/CD pipeline.   
+
+#### Additional Features
+Our developer tool should also helps fascilitate with viewing and generating configuration schema.
 
 
 ## 📦 NuGet Packages
@@ -55,14 +60,19 @@ Shared logic for adding command-line interface used in validating configuration 
 ### TerribleSettingsAuditor.Abstractions
 This is the library with attributes that add metadata and help facilitate TSA.
 
-## Vocabulary   
+## 📓 Vocabulary   
 We used creative names to distinguish our attributes.
 
 * Baggage – Configuration class the app can carry along.
 
 * BaggageItem - Individual configuration property.
 
-## Sample Configuration
+## Sample
+It's very simple to set up. 
+
+For the in-house configuration classes add the `[Luggage]` attribute to the class. This helps TSA find your configuration classes. 
+
+### Configuration
 TSA tracks your configuration by using attributes. `[Luggage]` applies to the classs and `[LuggageItem]` applies to the properties.
 
 ```csharp
@@ -83,4 +93,36 @@ public class ApplicationOptions
     public bool? DoesntNeedToBeSet { get; set; }
 }
 ```
+
+### BootStrapping (Program.cs)
+We'll need to include this.
+
+```csharp
+// tsa
+builder.AddTerribleSettingsAuditor(s => {
+    s.ScreenOnStartup = true;
+    s.AbortScreenFailure = true;
+});
+
+var app = builder.Build();
+
+// tsa
+await ;app.UseTerribleSettingsAuditorAsync(args)
+
+```
+
+#### AddTerribleSettingsAuditor()
+Configures how Terrible Settings Auditor should operate by default.   
+
+#### app.UseTerribleSettingsAuditorAsync(args)
+This line takes command line arguments and processes them to handle running tsa commands against the app.   
+
+### CLI Commands
+We can now run CLI commands through the `LaunchSettings.json` file or through terminal.
+
+* `dotnet run MyApp.dll tsa --screen`
+* `MyApp.exe tsa --screen`
+
+### Screening Report
+This is meant to be a paradoy and to make this process fun.   
 

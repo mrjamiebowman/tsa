@@ -9,6 +9,9 @@ public class LuggageItemAttribute : System.Attribute
 {
     public string? Description { get; set; }
 
+    /// <summary>
+    ///  Is this a secret? Connection Strings? API Keys?
+    /// </summary>
     public bool Secret { get; set; }
 
     public LuggageItemAttribute(string? description = null)
