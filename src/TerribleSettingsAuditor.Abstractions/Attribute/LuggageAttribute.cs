@@ -17,7 +17,7 @@ public class LuggageAttribute : System.Attribute
 
     public string? Description { get; set; }
 
-    public LuggageAttribute(string? name = null)
+    public LuggageAttribute(string? description = null)
     {
         Name = name;
     }

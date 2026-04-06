@@ -17,6 +17,8 @@ public class ConfigurationReport
 
     public string? Namespace { get; set; }
 
+    public Type? ConfigurationType { get; set; }
+
     public string? Message { get; set; }
 
     public List<ConfigurationPropertyReport> Properties = new();
