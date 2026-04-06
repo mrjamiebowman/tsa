@@ -3,7 +3,7 @@
 
 An open-source modern .NET tool that audits, validates your application's configuration and environment — all with TSA-grade scrutiny.
 
-* TSA PreCheck - Fast scan to ensure essential config values are present (like connection strings, secrets, values, etc).
+* TSA Screen - Fast screen to ensure essential config values are present (like connection strings, secrets, values, etc).
 
 ---
 
@@ -46,7 +46,7 @@ public class ApplicationOptions
 ```
 
 ```bash
-> SampleApp.exe tsa --precheck   
+> SampleApp.exe tsa --screen
 ✅ SQLConnectionString: Present   
 ⚠️ RedisCacheKey: Missing   
 ✅ ApiBaseUrl: Present   
