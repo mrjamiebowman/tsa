@@ -5,6 +5,12 @@
 	<ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>Latest</LangVersion>
+	<Copyright>2026</Copyright>
+	<PackageProjectUrl>https://github.com/mrjamiebowman/tsa</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<RepositoryUrl>https://github.com/mrjamiebowman/tsa</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>Configuration;Pipelines;CICD;Testing</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +31,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TerribleSettingsAuditor.Abstractions\TerribleSettingsAuditor.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
