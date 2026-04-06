@@ -8,9 +8,42 @@ An open-source modern .NET tool that audits, validates your application's config
 ## How does it work?
 Let's start with how modern .NET handles configuration to understand where this tool steps in.
 
+### Modern .NET's Configuration Store
 Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys.
 
+```mermaid
+flowchart LR
+    subgraph Sources["Configuration Sources"]
+        US["User Secrets"]
+        EV["Environment Variables"]
+        AAC["Azure App Configuration"]
+        APP["appsettings.json"]
+        APPOV["appsettings.overrides.json"]
+    end
 
+    CS["Configuration Store"]
+    APPCTX["Application"]
+
+    US --> CS
+    EV --> CS
+    AAC --> CS
+    APP --> CS
+    APPOV --> CS
+
+    CS --> APPCTX
+```
+
+The problem with validating configuration in a single source is that it doesn't check what the application is using at runtime.
+
+### .NET DataAnnotations Validation
+This is great, and we want this tool to pair well with this process. However, the downside is that it doesn't return a "report" and typically runs at startup.
+
+#### Disadvantages
+- Runs on Startup (past deployment gates)
+- Doesn't run on demand.
+- Isn't CI/CD pipeline friendly.
+
+## How Terrible Settings Auditor Works
 
 
 ## 📦 NuGet Packages
