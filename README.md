@@ -1,36 +1,39 @@
-# ✈️  Terrible Settings Auditor (TSA)
+# Terrible Settings Auditor
+Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.   
 
 "We screen your app settings before they crash on takeoff."
 
-Terrible Settings Auditor is an independent developer tool and is not affiliated with or endorsed by the Transportation Security Administration.   
+An open-source modern .NET tool that audits, validates your application's configuration and environment.
 
-An open-source modern .NET tool that audits, validates your application's configuration and environment — all with TSA-grade scrutiny.
+## How does it work?
+Let's start with how modern .NET handles configuration to understand where this tool steps in.
 
-* TSA Screen - Fast screen to ensure essential config values are present (like connection strings, secrets, values, etc).
+Modern .NET is based around a `Configuration Store` that can source multiple locations. For example, applications can include settings from User Secrets, Environment Variables, Azure App Configuration, appSettings.json, and more. The last store referenced will always win when looking up configuration keys.
 
----
 
-📦 NuGet Packages
+
+
+## 📦 NuGet Packages
 TSA.Abstractions: Low-level package for attributes and configuration. (.NET Standard 2.0 for max compatibility)
 
-TSA.Core: Shared logic for config analysis.
+### TerribleSettingsAuditor.Core
+Shared logic for adding command-line interface used in validating configuration often used in CI/CD pipelines.    
 
-TSA.CLI: Command-line interface used in CI/CD pipelines.
+### TerribleSettingsAuditor.Abstractions
+This is the library with attributes that add metadata and help facilitate TSA.
 
---- 
-
-### ✈️ TSA Vocabulary   
+## Vocabulary   
 We used creative names to distinguish our attributes.
 
-* Carry-On – Configuration class the app can carry along.
+* Baggage – Configuration class the app can carry along.
 
-* Baggage-Item - Individual configuration property.
+* BaggageItem - Individual configuration property.
 
-#### Sample Configuration
-TSA tracks your bags by using attributes. `[CarryOn]` applies to the classs and `[BaggageItem]` applies to the properties.
+## Sample Configuration
+TSA tracks your configuration by using attributes. `[Luggage]` applies to the classs and `[LuggageItem]` applies to the properties.
 
 ```csharp
-[CarryOn("Databases", "Application settings")]
+[Luggage("Databases", "Application settings")]
 public class ApplicationOptions
 {
     /// <summary>
@@ -40,18 +43,11 @@ public class ApplicationOptions
 
     public bool DebugMode { get; set; } = false;
 
-    [BaggageItem("Application Title")]
+    [LuggageItem("Application Title")]
     public string? Title { get; set; }
 
-    [BaggageItem("DoesntNeedToBeSet")]
+    [LuggageItem("DoesntNeedToBeSet")]
     public bool? DoesntNeedToBeSet { get; set; }
 }
-```
-
-```bash
-> SampleApp.exe tsa --screen
-✅ SQLConnectionString: Present   
-⚠️ RedisCacheKey: Missing   
-✅ ApiBaseUrl: Present   
 ```
 
