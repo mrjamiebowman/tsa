@@ -13,8 +13,6 @@ namespace TerribleSettingsAuditor.Abstractions.Attribute;
 [AttributeUsage(AttributeTargets.Class)]
 public class LuggageAttribute : System.Attribute
 {
-    public bool IsRequired { get; set; }
-
     public string? Name { get; set; }
 
     public string? Description { get; set; }
@@ -24,9 +22,8 @@ public class LuggageAttribute : System.Attribute
         Name = name;
     }
 
-    public LuggageAttribute(string? name = null, string? description = null, bool isRequired = false)
+    public LuggageAttribute(string? name = null, string? description = null)
     {
-        IsRequired = isRequired;
         Name = name;
         Description = description;
     }
