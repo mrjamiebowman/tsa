@@ -35,10 +35,40 @@ flowchart LR
     CS --> APPCTX
 ```
 
-The problem with validating configuration in a single source is that it doesn't check what the application is using at runtime.
+#### Sample Configuration Bootstrapping
+```csharp
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddUserSecrets<Program>(optional: true)
+    .AddEnvironmentVariables()
+    .AddJsonFile("appsettings.overrides.json", optional: false, reloadOnChange: true);
+```
+
+The problem with validating configuration in a single source is that it doesn't check what the application is using at runtime. When .NET injects the configuration it's using the store that loaded last with that value.
+
+### Configuration Race Condition Explained
+In this example, I'm creating and injecting 2 configuration classes to show how .NET handles this.
+
+![Configuration Setup](.docs/configuration-setup.png) 
+
+The first configuration class.   
+
+![First Configuration Class](.docs/configuration-value-1.png) 
+
+The second configuration class.   
+
+![Second Configuration Class](.docs/configuration-value-2.png) 
+
+In the end... the Configuration class that is injected last wins!
+
+![Configuration Race Condition](.docs/configuration-race-condition.png) 
+
+This ultimately means that validating configuration at the source doesn't necessarily mean that the application will start succesfully.   
+
+We believe that having a tool that can run at multiple steps of the development process will help navigate these issues. For example, local development, CI/CD pipelines, deployments, and on-demand as configuration can change.   
 
 ### .NET DataAnnotations Validation
-This is great, and we want this tool to pair well with this process. However, the downside is that it doesn't return a "report" and typically runs at startup.
+This is great, and we want this tool to pair well with this process. However, the downside is that it doesn't return a "report" and only runs at startup.
 
 #### Disadvantages
 - Runs on Startup (past deployment gates)
