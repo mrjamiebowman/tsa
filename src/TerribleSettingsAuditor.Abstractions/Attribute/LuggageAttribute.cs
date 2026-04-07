@@ -21,7 +21,10 @@ public class LuggageAttribute : System.Attribute
     /// </summary>
     public bool Pinned { get; set; }
 
-    public int? Order { get; set; }
+    /// <summary>
+    ///  Order which is applied with and after pinned. This is used to order the configurations in the report. The lower the number, the higher it appears in the report.
+    /// </summary>
+    public int Order { get; set; } = int.MaxValue;
 
     public LuggageAttribute()
     {

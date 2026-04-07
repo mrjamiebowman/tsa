@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("Azure App Config", Pinned = true)]
+[Luggage("Azure App Config", Order = 1, Pinned = true)]
 public class AzureAppConfigOptions
 {
     public const string Position = "AzureAppConfig";
