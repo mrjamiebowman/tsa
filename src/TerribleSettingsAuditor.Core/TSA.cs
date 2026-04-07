@@ -248,6 +248,9 @@ public class TSA : ITSA
                 // required
                 var required = PropertyValidator.IsRequired(prop) ? true : false;
 
+                // expose value
+                string exposeValue = "test 213";
+
                 // baggage item
                 var baggageItem = new ConfigurationPropertyReport()
                 {
@@ -256,7 +259,10 @@ public class TSA : ITSA
                     Description = baggageAttr?.Description ?? String.Empty,
                     Pass = passed,
                     Message = message,
-                    Required = required
+                    Required = required,
+                    Secret = baggageAttr?.Secret ?? false,
+                    Expose = baggageAttr?.Expose ?? false,
+                    ExposeValue = exposeValue
                 };
 
                 // baggage item

@@ -41,6 +41,12 @@ public class ConfigurationPropertyReport
     public string? Message { get; set; }
 
     public bool? Required { get; set; }
+    
+    public bool? Secret { get; set; }
+
+    public bool? Expose { get; set; }
+
+    public string? ExposeValue { get; set; }
 
     public string? Reason { get; set; }
 }

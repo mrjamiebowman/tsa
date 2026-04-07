@@ -10,7 +10,7 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
 
     }
 
-    private string[] Headers = new[] { "", "Luggage Item", "Secret", "Expose", "State" };
+    private string[] Headers = new[] { "Luggage Item", "Secret", "Expose", "State" };
 
     public void WriteConfigTable(List<ReportItem> reportItems)
     {
@@ -20,7 +20,6 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
         // flatten values
         var flattenedItems = reportItems.Select(item => new string[]
         {
-            item.Icon ?? string.Empty,
             item.Name ?? string.Empty,
             item.Secret ?? string.Empty,
             item.Expose ?? string.Empty,
@@ -37,12 +36,12 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
         {
             var flattenedRow = new string[]
             {
-                row.Icon ?? string.Empty,
                 row.Name ?? string.Empty,
                 row.Secret ?? string.Empty,
                 row.Expose ?? string.Empty,
                 row.State ?? string.Empty
             };
+
             WriteRow(flattenedRow, widths);
         }
 
@@ -94,6 +93,9 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
         {
             widths[i] += 2;
         }
+
+        //// icon column fixed width
+        //widths[0] = 3;
 
         return widths;
     }

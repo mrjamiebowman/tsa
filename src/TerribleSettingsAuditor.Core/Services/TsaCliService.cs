@@ -30,14 +30,14 @@ public class TsaCliService : ITsaCliService
 
         foreach (var item in reports)
         {
-            WriteYellow($"{CLI.Icons.Luggage} Luggage: {item.Name}, ({item.Namespace}).");
+            WriteYellow($"{CLI.Icons.Luggage} Luggage: {item.Name}, ({item.Namespace})");
 
             List<ReportItem> reportItems = new List<ReportItem>();
 
             foreach (var prop in item.Properties.OrderBy(x => x.Name))
             {
                 var icon = prop.Pass ? CLI.Icons.Success : CLI.Icons.Failure;
-                var required = (prop.Required ?? false) ? "Yes" : "No";
+                var required = (prop.Required ?? false) ? "Yes" : "";
 
                 // ✅ Luggage Item
                 var reportItem = new ReportItem();
@@ -45,6 +45,13 @@ public class TsaCliService : ITsaCliService
                 reportItem.Description = prop.Description;
                 reportItem.Icon = icon;
                 reportItem.Description = prop.Description;
+                reportItem.Secret = (prop.Secret ?? false) ? "Yes" : "";
+
+                if (prop.Expose == true)
+                {
+                    // expose
+                    reportItem.Expose = prop.ExposeValue;
+                }
 
                 reportItems.Add(reportItem);
             }
