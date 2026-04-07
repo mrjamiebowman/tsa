@@ -41,6 +41,8 @@ public class ConfigurationPropertyReport
     public string? Message { get; set; }
 
     public bool? Required { get; set; }
+
+    public int? Order { get; set; } = int.MaxValue;
     
     public bool? Secret { get; set; }
 

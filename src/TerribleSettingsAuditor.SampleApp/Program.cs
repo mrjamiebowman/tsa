@@ -55,6 +55,8 @@ builder.Configuration
 /*                tsa                   */
 /****************************************/
 
+builder.Services.Configure<AzureAppConfigOptions>(builder.Configuration.GetSection(AzureAppConfigOptions.Position));
+
 // configuration (singleton)
 DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
 builder.Configuration.GetSection(DatabaseConfiguration.Position).Bind(databaseConfiguration);

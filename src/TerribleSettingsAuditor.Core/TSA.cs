@@ -183,7 +183,7 @@ public class TSA : ITSA
 
             bool configPass = true;
 
-            var carryOn = new ConfigurationReport()
+            var luggage = new ConfigurationReport()
             {
                 Name = configKey.ClassName,
                 Namespace = configKey.Namespace
@@ -200,80 +200,95 @@ public class TSA : ITSA
 
             var configType = config?.GetType();
 
-            // carry-on
+            // luggage
             var carryOnAttr = configType.GetCustomAttribute<LuggageAttribute>();
 
             // properties
-            var properties = configType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var properties = configType?.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             /**************************************************/
             /*                   validation                   */
             /**************************************************/
 
-            foreach (var prop in properties)
+            if (properties != null && properties.Any())
             {
-                /**************************************************/
-                /*          baggage item (property check)         */
-                /**************************************************/
-
-                var baggageAttr = prop.GetCustomAttribute<LuggageItemAttribute>();
-                var baggageAttrConnectionString = prop.GetCustomAttribute<LuggageItemConnectionStringAttribute>();
-
-                /**************************************************/
-                /*                  validation                    */
-                /**************************************************/
-
-                // validate
-                var result = PropertyValidator.ValidateProperty(config, prop.Name);
-
-                bool passed = false;
-
-                if (!result.Any())
+                foreach (var prop in properties)
                 {
-                    passed = true;
+                    /**************************************************/
+                    /*          baggage item (property check)         */
+                    /**************************************************/
+
+                    var baggageAttr = prop.GetCustomAttribute<LuggageItemAttribute>();
+                    var baggageAttrConnectionString = prop.GetCustomAttribute<LuggageItemConnectionStringAttribute>();
+
+                    /**************************************************/
+                    /*                  validation                    */
+                    /**************************************************/
+
+                    // validate
+                    var result = PropertyValidator.ValidateProperty(config, prop.Name);
+
+                    bool passed = false;
+
+                    if (!result.Any())
+                    {
+                        passed = true;
+                    }
+                    else
+                    {
+                        pass = false;
+                        configPass = false;
+                    }
+
+                    // message
+                    string message = string.Join(", ",
+                        result
+                            .Select(r => r.ErrorMessage)
+                            .Where(m => !string.IsNullOrWhiteSpace(m)));
+
+                    // required
+                    var required = PropertyValidator.IsRequired(prop) ? true : false;
+
+                    // expose value
+                    string exposeValue = "";
+
+                    if (baggageAttr?.Expose == true)
+                    {
+                        int? left = baggageAttr.ShowLeft;
+                        int? right = baggageAttr.ShowRight;
+
+                        object? rawValue = prop.GetValue(config);
+                        string? val = rawValue?.ToString();
+
+                        exposeValue = MaskingHelper.MaskMiddle(val, left, right);
+                    }
+
+                    // baggage item
+                    var baggageItem = new ConfigurationPropertyReport()
+                    {
+                        BaggageItem = baggageAttr != null ? true : false,
+                        Name = prop.Name,
+                        Description = baggageAttr?.Description ?? String.Empty,
+                        Pass = passed,
+                        Message = message,
+                        Required = required,
+                        Secret = baggageAttr?.Secret ?? false,
+                        Expose = baggageAttr?.Expose ?? false,
+                        ExposeValue = exposeValue
+                    };
+
+                    // baggage item
+                    luggage.Properties.Add(baggageItem);
                 }
-                else
-                {
-                    pass = false;
-                    configPass = false;
-                }
-
-                // message
-                string message = string.Join(
-                    ", ",
-                    result
-                        .Select(r => r.ErrorMessage)
-                        .Where(m => !string.IsNullOrWhiteSpace(m)));
-
-                // required
-                var required = PropertyValidator.IsRequired(prop) ? true : false;
-
-                // expose value
-                string exposeValue = "test 213";
-
-                // baggage item
-                var baggageItem = new ConfigurationPropertyReport()
-                {
-                    BaggageItem = baggageAttr != null ? true : false,
-                    Name = prop.Name,
-                    Description = baggageAttr?.Description ?? String.Empty,
-                    Pass = passed,
-                    Message = message,
-                    Required = required,
-                    Secret = baggageAttr?.Secret ?? false,
-                    Expose = baggageAttr?.Expose ?? false,
-                    ExposeValue = exposeValue
-                };
-
-                // baggage item
-                carryOn.Properties.Add(baggageItem);
             }
 
-            // pass or fail
-            carryOn.Passed = configPass;
+            // map
+            luggage.Order = carryOnAttr?.Order;
+            luggage.Pinned = carryOnAttr?.Pinned ?? false;
+            luggage.Passed = configPass;
 
             // configuration
-            screeningReport.Configuration.Add(carryOn);
+            screeningReport.Configuration.Add(luggage);
         }
 
         // pass or fail
