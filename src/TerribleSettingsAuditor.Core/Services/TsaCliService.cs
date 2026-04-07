@@ -20,7 +20,7 @@ internal class TsaCliService : ITsaCliService
 
             foreach (var prop in item.Properties)
             {
-                // ✅ Baggage Item: BlobStorage, Required: No
+                // ✅ Luggage Item
                 var icon = prop.Pass ? CLI.Icons.Success : CLI.Icons.Failure;
                 var required = (prop.Required ?? false) ? "Yes" : "No";
 

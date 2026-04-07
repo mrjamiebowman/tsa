@@ -85,7 +85,7 @@ var app = builder.Build();
 // If there are issues and AbortScreenFailure is true then the app will exit with a non-zero exit code.
 // If there are no issues or if ScreenOnStartup is false then this will do nothing.
 // CLI commands always win over settings.
-//await app.UseTerribleSettingsAuditorAsync(args);
+await app.UseTerribleSettingsAuditorAsync(args);
 
 app.MapOpenApi();
 app.MapScalarApiReference();

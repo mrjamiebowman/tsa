@@ -2,7 +2,6 @@
 
 internal class CLI
 {
-
     public static string GenerateRandomScreeningReportMessage()
     {
         string[] tsaLines = new[]

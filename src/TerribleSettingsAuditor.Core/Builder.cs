@@ -36,9 +36,9 @@ public static class Builder
         builder.Services.AddSingleton(tsaConfiguration);
 
         // services
-        builder.Services.AddScoped<ITsaCliService, TsaCliService>();
-        builder.Services.AddScoped<ITSA, TSA>();
-        builder.Services.AddScoped<ITsaConsoleTableWriter, TsaConsoleTableWriter>();
+        builder.Services.TryAddTransient<ITsaCliService, TsaCliService>();
+        builder.Services.TryAddTransient<ITSA, TSA>();
+        builder.Services.TryAddTransient<ITsaConsoleTableWriter, TsaConsoleTableWriter>();
         builder.Services.TryAddTransient<ITsaConfigValidator, TsaConfigValidator>();
 
         return builder;
