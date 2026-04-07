@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TerribleSettingsAuditor.Abstractions.Attribute;
-using TerribleSettingsAuditor.Abstractions.Enums;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
@@ -11,14 +10,12 @@ public class DatabaseConfiguration
     ///  Configuration Key. (i.e., Database:ConnectionStringSampleApp)
     /// </summary>
     public const string Position = "Database";
-
-    [LuggageItem("SampleApp Connection String")]
-    [LuggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    
     [Required]
+    [LuggageItem("SampleApp Connection String", true)]
     public string? ConnectionStringSampleApp { get; set; }
-
-    [LuggageItem("UsersDb Connection String")]
-    [LuggageItemConnectionString(ConnectionStringEnum.SqlServer)]
+    
     [Required]
+    [LuggageItem("UsersDb Connection String", true)]
     public string? ConnectionStringUsersDb { get; set; }
 }

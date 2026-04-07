@@ -78,21 +78,21 @@ For the in-house configuration classes add the `[Luggage]` attribute to the clas
 TSA tracks your configuration by using attributes. `[Luggage]` applies to the classs and `[LuggageItem]` applies to the properties.
 
 ```csharp
-[Luggage("Databases", "Application settings")]
-public class ApplicationOptions
+[Luggage("Databases", "Database Connection strings")]
+public class DatabaseConfiguration
 {
     /// <summary>
-    ///  Configuration Key. (i.e., Application:DebugMode)
+    ///  Configuration Key. (i.e., Database:ConnectionStringSampleApp)
     /// </summary>
-    public const string Position = "Application";
+    public const string Position = "Database";
+    
+    [Required]
+    [LuggageItem("SampleApp Connection String", true)]
+    public string? ConnectionStringSampleApp { get; set; }
 
-    public bool DebugMode { get; set; } = false;
-
-    [LuggageItem("Application Title")]
-    public string? Title { get; set; }
-
-    [LuggageItem("DoesntNeedToBeSet")]
-    public bool? DoesntNeedToBeSet { get; set; }
+    [Required]
+    [LuggageItem("UsersDb Connection String", true)]
+    public string? ConnectionStringUsersDb { get; set; }
 }
 ```
 

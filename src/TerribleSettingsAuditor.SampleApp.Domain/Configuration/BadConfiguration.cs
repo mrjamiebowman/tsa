@@ -11,7 +11,7 @@ public class BadConfiguration
     /// </summary>
     public const string Position = "Bad";
 
-    [LuggageItem("Bad Setting (Should fail)")]
     [Required]
+    [LuggageItem("Bad Setting (Should fail)")]
     public bool? Baddie { get; set; }
 }
