@@ -13,6 +13,10 @@ public class ConfigurationReport
 {
     public bool Passed { get; set; }
 
+    public bool Pinned { get; set; }
+
+    public int? Order { get; set; }
+
     public string? Name { get; set; }
 
     public string? Namespace { get; set; }

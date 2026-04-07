@@ -4,8 +4,18 @@ using TerribleSettingsAuditor.Core.Models;
 
 namespace TerribleSettingsAuditor.Core.Services;
 
-internal class TsaCliService : ITsaCliService 
+public class TsaCliService : ITsaCliService 
 {
+    // logger
+
+    // services
+    private readonly ITsaConsoleTableWriter _consoleTableWriter;
+
+    public TsaCliService(ITsaConsoleTableWriter consoleTableWriter)
+    {
+        _consoleTableWriter = consoleTableWriter;
+    }
+    
     public void ShowReport(ScreeningReport screeningReport)
     {
         Console.WriteLine("");
@@ -14,29 +24,33 @@ internal class TsaCliService : ITsaCliService
         WriteGreen($" 👮 TSA: {CLI.GenerateRandomScreeningReportMessage()}");
         Console.WriteLine("");
 
-        foreach (var item in screeningReport.Configuration)
+        // sort & order
+        var reports = screeningReport.Configuration.OrderBy(x => x.Pinned == true)
+                                                   .ThenBy(x => x.Order).ToList();
+
+        foreach (var item in reports)
         {
             WriteYellow($"{CLI.Icons.Luggage} Luggage: {item.Name}, ({item.Namespace}).");
 
-            foreach (var prop in item.Properties)
+            List<ReportItem> reportItems = new List<ReportItem>();
+
+            foreach (var prop in item.Properties.OrderBy(x => x.Name))
             {
-                // ✅ Luggage Item
                 var icon = prop.Pass ? CLI.Icons.Success : CLI.Icons.Failure;
                 var required = (prop.Required ?? false) ? "Yes" : "No";
 
-                string description = string.Empty;
-                if (!String.IsNullOrWhiteSpace(prop.Description))
-                {
-                    description = $", Description: {prop.Description}";
-                }
+                // ✅ Luggage Item
+                var reportItem = new ReportItem();
+                reportItem.Name = prop.Name;
+                reportItem.Description = prop.Description;
+                reportItem.Icon = icon;
+                reportItem.Description = prop.Description;
 
-                WriteYellow($" - {icon} {prop.Name}, Required: {required}{description}");
-
-                if (!String.IsNullOrWhiteSpace(prop.Message))
-                {
-                    WriteRed($" - {icon} Error: {prop.Message}");
-                }
+                reportItems.Add(reportItem);
             }
+
+            // output config table
+            _consoleTableWriter.WriteConfigTable(reportItems);
 
             Console.WriteLine("");
         }

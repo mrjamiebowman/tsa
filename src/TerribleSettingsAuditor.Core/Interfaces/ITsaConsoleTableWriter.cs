@@ -1,6 +1,8 @@
-﻿namespace TerribleSettingsAuditor.Core.Interfaces;
+﻿using TerribleSettingsAuditor.Core.Models;
 
-internal interface ITsaConsoleTableWriter
+namespace TerribleSettingsAuditor.Core.Interfaces;
+
+public interface ITsaConsoleTableWriter
 {
-
+    void WriteConfigTable(List<ReportItem> reportItems);
 }

@@ -1,32 +1,77 @@
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Models;
 
 namespace TerribleSettingsAuditor.Core.Services;
 
-internal class TsaConsoleTableWriter : ITsaConsoleTableWriter
+public class TsaConsoleTableWriter : ITsaConsoleTableWriter
 {
-    public void Write(string[] headers, IEnumerable<string[]> rows)
+    public TsaConsoleTableWriter()
     {
-        if (headers == null || headers.Length == 0)
-            throw new ArgumentException("Headers are required.", nameof(headers));
 
-        var rowList = rows?.ToList() ?? new List<string[]>();
+    }
 
-        if (rowList.Any(r => r.Length != headers.Length))
-            throw new ArgumentException("All rows must have the same number of columns as headers.", nameof(rows));
+    private string[] Headers = new[] { "", "Luggage Item", "Secret", "Expose", "State" };
 
-        int[] widths = GetColumnWidths(headers, rowList);
+    public void WriteConfigTable(List<ReportItem> reportItems)
+    {
+        if (Headers == null || Headers.Length == 0)
+            throw new ArgumentException("Headers are required.", nameof(Headers));
 
-        WriteBorder(widths);
-        WriteRow(headers, widths);
-        WriteBorder(widths);
-
-        foreach (var row in rowList)
+        // flatten values
+        var flattenedItems = reportItems.Select(item => new string[]
         {
-            WriteRow(row, widths);
+            item.Icon ?? string.Empty,
+            item.Name ?? string.Empty,
+            item.Secret ?? string.Empty,
+            item.Expose ?? string.Empty,
+            item.State ?? string.Empty
+        }).ToList();
+
+        int[] widths = GetColumnWidths(Headers, flattenedItems);
+
+        WriteBorder(widths);
+        WriteRow(Headers, widths);
+        WriteBorder(widths);
+
+        foreach (var row in reportItems)
+        {
+            var flattenedRow = new string[]
+            {
+                row.Icon ?? string.Empty,
+                row.Name ?? string.Empty,
+                row.Secret ?? string.Empty,
+                row.Expose ?? string.Empty,
+                row.State ?? string.Empty
+            };
+            WriteRow(flattenedRow, widths);
         }
 
         WriteBorder(widths);
     }
+
+    //public void Write(string[] headers, IEnumerable<string[]> rows)
+    //{
+    //    if (headers == null || headers.Length == 0)
+    //        throw new ArgumentException("Headers are required.", nameof(headers));
+
+    //    var rowList = rows?.ToList() ?? new List<string[]>();
+
+    //    if (rowList.Any(r => r.Length != headers.Length))
+    //        throw new ArgumentException("All rows must have the same number of columns as headers.", nameof(rows));
+
+    //    int[] widths = GetColumnWidths(headers, rowList);
+
+    //    WriteBorder(widths);
+    //    WriteRow(headers, widths);
+    //    WriteBorder(widths);
+
+    //    foreach (var row in rowList)
+    //    {
+    //        WriteRow(row, widths);
+    //    }
+
+    //    WriteBorder(widths);
+    //}
 
     private static int[] GetColumnWidths(string[] headers, List<string[]> rows)
     {

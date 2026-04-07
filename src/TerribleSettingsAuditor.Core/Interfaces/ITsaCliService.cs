@@ -2,7 +2,7 @@
 
 namespace TerribleSettingsAuditor.Core.Interfaces;
 
-internal interface ITsaCliService
+public interface ITsaCliService
 {
     //string CenterText(string text, int width);
 

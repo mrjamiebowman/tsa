@@ -32,8 +32,11 @@ builder.Configuration
 //    .ValidateDataAnnotations()
 //    .ValidateOnStart();
 
+
+
+
 /****************************************/
-/*     tsa (not using attributes)       */
+/*     tsa (future approach)            */
 /****************************************/
 
 //builder.Services
