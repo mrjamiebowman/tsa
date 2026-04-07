@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("BadConfiguration", "Bad Configuration")]
+[Luggage("Bad Configuration")]
 public class BadConfiguration
 {
     /// <summary>

@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("Databases", "Database Connection strings")]
+[Luggage("Database Connection strings", Pinned = true)]
 public class DatabaseConfiguration
 {
     /// <summary>
@@ -12,10 +12,10 @@ public class DatabaseConfiguration
     public const string Position = "Database";
     
     [Required]
-    [LuggageItem("SampleApp Connection String", true)]
+    [LuggageItem("SampleApp Connection String")]
     public string? ConnectionStringSampleApp { get; set; }
     
     [Required]
-    [LuggageItem("UsersDb Connection String", true)]
+    [LuggageItem("UsersDb Connection String")]
     public string? ConnectionStringUsersDb { get; set; }
 }
