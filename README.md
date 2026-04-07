@@ -47,7 +47,7 @@ This is great, and we want this tool to pair well with this process. However, th
 - Isn't CI/CD pipeline friendly.
 
 ### Our Solution
-We see the missing piece here as being able to run configuration validation ("screening") on demand against any environment, generate reports, and output that to a command prompt or CI/CD pipeline.   
+We see the missing piece here as being able to run configuration validation ("screening") on demand against any environment, generate reports, and output that to a command prompt or CI/CD pipeline. We also believe in making quality software that doesn't couple and force or trap developers into using our product. If you decide not to use this, uninstall "core" and remove the bootstrapping code and add in validations. This process wraps Data Annotations and turns it into a report.
 
 #### Additional Features
 Work in progress... but we want to extend this to generate schemas and do even more!
@@ -126,4 +126,6 @@ We can now run CLI commands through the `LaunchSettings.json` file or through te
 
 ### Screening Report
 This is meant to be a paradoy and to make this process fun.   
+
+![Screening Report](.docs/tsa-screen.png) 
 

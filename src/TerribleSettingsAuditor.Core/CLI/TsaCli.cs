@@ -41,7 +41,7 @@ public static class TsaCli
         WriteGreen(@"");
         WriteGreen(@"              ______");
         WriteGreen(@"             _\  _~-\___");
-        WriteGreen(@"    =  = == (____MRJB___D");
+        WriteGreen(@"    =  = == (____    ___D");
         WriteGreen(@"                \_____\___________________,-~~~~~~~`-.._");
         WriteGreen(@"                / o O o o o o O O o o o o o o O o       |\_");
         WriteGreen(@"                `~-.__        ___..----..                  )");
@@ -64,7 +64,7 @@ public static class TsaCli
     public static void GenerateJoke()
     {
         WriteGreen(@"");
-        WriteGreen($"👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
+        WriteGreen($"👮 TSA: {GenerateRandomScreeningReportMessage()}");
         WriteGreen(@"");
     }
 
@@ -110,7 +110,7 @@ public static class TsaCli
         Console.WriteLine("");
         ShowBlock(" 📄 Screening Report");
         Console.WriteLine("");
-        WriteGreen($" 👮 TSA Agent: {GenerateRandomScreeningReportMessage()}");
+        WriteGreen($" 👮 TSA: {GenerateRandomScreeningReportMessage()}");
         Console.WriteLine("");
 
         foreach (var item in screeningReport.Configuration)
@@ -151,7 +151,7 @@ public static class TsaCli
             "Ma’am, you’re too calm for a 6 a.m. flight. Step over here. We need to know your secrets. And maybe your skincare routine.",
             "Sir, you’re wearing Gucci slides, a Rolex, and 17 gold chains… on Spirit Airlines. Just a quick check to make sure you’re not the plane's new owner.",
             "Sir, you said 'bomb' seven times while arguing with your mom on FaceTime. Just gonna go ahead and need you to follow us over here. Gently.",
-            "Sir, I get it — barefoot is freeing. But this is an airport, not a yoga retreat. Let’s talk about hygiene over here.",
+            "Sir, I get it — barefoot is freeing. But this is not a yoga retreat. Let’s talk about hygiene over here.",
             "Sir, your laptop has 47 open tabs, 3 mining scripts, and a crypto wallet. We're just gonna make sure it's not trying to fly itself.",
             "Ma’am, you whispered something about lizard people and 5G at Gate 12. We’re just gonna check your carry-on for tinfoil hats.",
             "Sir, you’ve been standing barefoot in security humming Jimmy Buffett songs for 30 minutes. Come with us before you start grilling.",
