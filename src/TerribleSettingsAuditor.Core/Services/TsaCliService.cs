@@ -19,9 +19,10 @@ public class TsaCliService : ITsaCliService
     public void ShowReport(ScreeningReport screeningReport)
     {
         Console.WriteLine("");
-        ShowBlock(" 📄 Screening Report");
         Console.WriteLine("");
         WriteGreen($" 👮 TSA: {CLI.GenerateRandomScreeningReportMessage()}");
+        Console.WriteLine("");
+        ShowBlock(" 📄 Screening Report");
         Console.WriteLine("");
 
         // sort & order
@@ -36,20 +37,22 @@ public class TsaCliService : ITsaCliService
 
             foreach (var prop in item.Properties.OrderBy(x => x.Name))
             {
+                // vars
                 var icon = prop.Pass ? CLI.Icons.Success : CLI.Icons.Failure;
                 var required = (prop.Required ?? false) ? "Yes" : "";
 
-                // ✅ Luggage Item
+                // Luggage Item (✅/❌)
                 var reportItem = new ReportItem();
                 reportItem.Name = prop.Name;
                 reportItem.Description = prop.Description;
                 reportItem.Icon = icon;
                 reportItem.Description = prop.Description;
                 reportItem.Secret = (prop.Secret ?? false) ? "Yes" : "";
+                reportItem.State = (prop.Pass ? "✅" : "❌");
 
+                // expose
                 if (prop.Expose == true)
                 {
-                    // expose
                     reportItem.Expose = prop.ExposeValue;
                 }
 
@@ -146,6 +149,7 @@ public class TsaCliService : ITsaCliService
         }
 
         int padding = (width - text.Length) / 2;
+
         return new string(' ', padding) + text;
     }
 

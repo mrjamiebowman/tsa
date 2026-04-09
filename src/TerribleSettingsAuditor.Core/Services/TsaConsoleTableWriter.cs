@@ -14,8 +14,9 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
 
     public void WriteConfigTable(List<ReportItem> reportItems)
     {
-        if (Headers == null || Headers.Length == 0)
+        if (Headers == null || Headers.Length == 0) {
             throw new ArgumentException("Headers are required.", nameof(Headers));
+        }
 
         // flatten values
         var flattenedItems = reportItems.Select(item => new string[]
@@ -26,6 +27,7 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
             item.State ?? string.Empty
         }).ToList();
 
+        // column widths
         int[] widths = GetColumnWidths(Headers, flattenedItems);
 
         WriteBorder(widths);
@@ -48,30 +50,6 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
         WriteBorder(widths);
     }
 
-    //public void Write(string[] headers, IEnumerable<string[]> rows)
-    //{
-    //    if (headers == null || headers.Length == 0)
-    //        throw new ArgumentException("Headers are required.", nameof(headers));
-
-    //    var rowList = rows?.ToList() ?? new List<string[]>();
-
-    //    if (rowList.Any(r => r.Length != headers.Length))
-    //        throw new ArgumentException("All rows must have the same number of columns as headers.", nameof(rows));
-
-    //    int[] widths = GetColumnWidths(headers, rowList);
-
-    //    WriteBorder(widths);
-    //    WriteRow(headers, widths);
-    //    WriteBorder(widths);
-
-    //    foreach (var row in rowList)
-    //    {
-    //        WriteRow(row, widths);
-    //    }
-
-    //    WriteBorder(widths);
-    //}
-
     private static int[] GetColumnWidths(string[] headers, List<string[]> rows)
     {
         int[] widths = new int[headers.Length];
@@ -93,9 +71,6 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
         {
             widths[i] += 2;
         }
-
-        //// icon column fixed width
-        //widths[0] = 3;
 
         return widths;
     }

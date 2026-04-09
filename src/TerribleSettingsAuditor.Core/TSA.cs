@@ -249,11 +249,30 @@ public class TSA : ITSA
                     // required
                     var required = PropertyValidator.IsRequired(prop) ? true : false;
 
+                    // secret
+                    bool isSecret = baggageAttr?.Secret ?? false;
+
                     // expose value
+                    bool expose = false;
                     string exposeValue = "";
 
-                    if (baggageAttr?.Expose == true)
+                    // warning
+                    if (isSecret == true && baggageAttr?.Expose == ExposeMethod.Full)
                     {
+                        _logger.LogWarning("Property {PropertyName} in {ClassName} is marked as Secret but has an Expose method set to {ExposeMethod}. Secrets should not be exposed. Please review the configuration.", prop.Name, configType.Name, baggageAttr.Expose);
+                    }
+
+                    // we don't allow secrets to be fully exposed. This is a safety measure to prevent accidental exposure of sensitive information.
+                    if (isSecret == false && baggageAttr?.Expose == ExposeMethod.Full)
+                    {
+                        // expose: full
+                        object? rawValue = prop.GetValue(config);
+                        exposeValue = rawValue?.ToString() ?? "";
+                        expose = true;
+                    }
+                    else if (baggageAttr?.Expose == ExposeMethod.Padded) 
+                    {
+                        // expose: padded
                         int? left = baggageAttr.ShowLeft;
                         int? right = baggageAttr.ShowRight;
 
@@ -261,6 +280,7 @@ public class TSA : ITSA
                         string? val = rawValue?.ToString();
 
                         exposeValue = MaskingHelper.MaskMiddle(val, left, right);
+                        expose = true;
                     }
 
                     // baggage item
@@ -272,8 +292,8 @@ public class TSA : ITSA
                         Pass = passed,
                         Message = message,
                         Required = required,
-                        Secret = baggageAttr?.Secret ?? false,
-                        Expose = baggageAttr?.Expose ?? false,
+                        Secret = isSecret,
+                        Expose = expose,
                         ExposeValue = exposeValue
                     };
 

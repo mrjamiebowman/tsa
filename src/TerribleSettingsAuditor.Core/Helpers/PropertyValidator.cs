@@ -27,14 +27,14 @@ public static class PropertyValidator
 
         var property = instance.GetType().GetProperty(propertyName);
 
-        if (property is null)
-            throw new ArgumentException(
-                $"Property '{propertyName}' was not found on type '{instance.GetType().Name}'.");
+        if (property is null) 
+        {
+            throw new ArgumentException($"Property '{propertyName}' was not found on type '{instance.GetType().Name}'.");
+        }
 
         var value = property.GetValue(instance);
 
-        var context = new ValidationContext(instance)
-        {
+        var context = new ValidationContext(instance) {
             MemberName = propertyName
         };
 
@@ -47,12 +47,12 @@ public static class PropertyValidator
 
     public static Dictionary<string, List<ValidationResult>> ValidateAllProperties(object instance)
     {
-        if (instance == null)
-        {
+        if (instance == null) {
             throw new ArgumentNullException(nameof(instance));
         }
 
         var errors = new Dictionary<string, List<ValidationResult>>();
+
         var properties = instance.GetType()
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
             .Where(p => p.CanRead);
