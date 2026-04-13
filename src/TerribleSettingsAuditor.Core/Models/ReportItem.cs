@@ -8,6 +8,8 @@ public class ReportItem
 
     public string? Description { get; set; } 
 
+    public string? Message { get; set; }
+
     public string? Secret { get; set; }
 
     public string? Expose { get; set; }

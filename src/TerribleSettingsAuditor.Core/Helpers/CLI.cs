@@ -2,6 +2,54 @@
 
 internal class CLI
 {
+    public static void WriteLineGreen(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message);
+        Console.ForegroundColor = previousColor;
+    }
+
+    public static void WriteLinLineYellow(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine(message);
+        Console.ForegroundColor = previousColor;
+    }
+
+    public static void WriteLineRed(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ForegroundColor = previousColor;
+    }
+
+    public static void WriteLineError(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ForegroundColor = previousColor;
+    }
+
+    public static void WriteGreen(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write(message);
+        Console.ForegroundColor = previousColor;
+    }
+
+    public static void WriteRed(string message)
+    {
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(message);
+        Console.ForegroundColor = previousColor;
+    }
+
     public static string GenerateRandomScreeningReportMessage()
     {
         string[] tsaLines = new[]

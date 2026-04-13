@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using TerribleSettingsAuditor.Core.Configuration;
+using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
 using TerribleSettingsAuditor.Core.Services;
 using TerribleSettingsAuditor.Core.Validators;
@@ -130,7 +131,7 @@ public static class Builder
         // tsa: generate config
         if (args[0] == "tsa" && (args[1] == "--generate-config" || args[1] == "-gc"))
         {
-            TsaCliService.WriteYellow("Generating TSA Config...");
+            CLI.WriteLinLineYellow("Generating TSA Config...");
             Environment.Exit(0);
         }
 

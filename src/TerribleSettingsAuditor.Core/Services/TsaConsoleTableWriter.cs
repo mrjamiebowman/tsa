@@ -1,3 +1,4 @@
+using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
 using TerribleSettingsAuditor.Core.Models;
 
@@ -44,7 +45,12 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
                 row.State ?? string.Empty
             };
 
-            WriteRow(flattenedRow, widths);
+            WriteRow(flattenedRow, widths, row.Pass);
+
+            if (!String.IsNullOrWhiteSpace(row.Message))
+            {
+                WriteFullRow(row.Message, row.Pass);
+            }
         }
 
         WriteBorder(widths);
@@ -77,26 +83,58 @@ public class TsaConsoleTableWriter : ITsaConsoleTableWriter
 
     private static void WriteBorder(int[] widths)
     {
-        Console.Write("+");
+        CLI.WriteGreen("+");
 
         foreach (int width in widths)
         {
-            Console.Write(new string('-', width));
-            Console.Write("+");
+            CLI.WriteGreen(new string('-', width));
+            CLI.WriteGreen("+");
         }
 
         Console.WriteLine();
     }
 
-    private static void WriteRow(string[] values, int[] widths)
+    private static void WriteFullRow(string message, bool pass = true)
     {
-        Console.Write("|");
+        if (pass == false)
+        {
+            CLI.WriteRed("| " + message);
+            CLI.WriteRed(new string(' ', Console.WindowWidth - message.Length - 3) + "|");
+        }
+        else
+        {
+            CLI.WriteGreen("| " + message);
+            CLI.WriteGreen(new string(' ', Console.WindowWidth - message.Length - 3) + "|");
+        }
+
+        Console.WriteLine();
+    }
+
+    private static void WriteRow(string[] values, int[] widths, bool pass = true)
+    {
+        if (pass == false)
+        {
+            CLI.WriteRed("|");
+        }
+        else
+        {
+            CLI.WriteGreen("|");
+        }
 
         for (int i = 0; i < values.Length; i++)
         {
             string value = values[i] ?? string.Empty;
-            Console.Write(" " + value.PadRight(widths[i] - 1));
-            Console.Write("|");
+
+            if (pass == false)
+            {
+                CLI.WriteRed(" " + value.PadRight(widths[i] - 1));
+                CLI.WriteRed("|");
+            }
+            else
+            {
+                CLI.WriteGreen(" " + value.PadRight(widths[i] - 1));
+                CLI.WriteGreen("|");
+            }
         }
 
         Console.WriteLine();
