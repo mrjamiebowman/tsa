@@ -5,24 +5,18 @@ public class TsaConfiguration
     public const string Position = "TSA";
 
     /// <summary>
-    ///  This option screens configuration on startup.
+    ///  This option screens configuration on Startup.
     /// </summary>
     public bool ScreenOnStartup { get; set; } = true;
 
     /// <summary>
-    ///  Abort if Screening fails.
+    ///  Abort if Screening fails on Startup
     /// </summary>
-    public bool AbortScreenFailure { get; set; } = true;
+    public bool AbortScreenFailure { get; set; }
 
-    ///// <summary>
-    /////  This is a Screen and Validation where TSA will not only inspect 
-    /////  but test connection strings and settings to see if they are in fact valid.
-    ///// </summary>
-    //public bool Validate { get; set; } = false;
-
-    ///// <summary>
-    /////  Abort validate failure.
-    ///// </summary>
-    //public bool AbortValidationFailure { get; set; } = true;
-
+    /// <summary>
+    ///  This limits how many stars are used when exposing a secret.
+    ///  i.e, "asdfdf***********************************************************2143"
+    /// </summary>
+    public int? DefaultMaxExposeSecretLength { get; set; } = 100;
 }

@@ -70,7 +70,7 @@ public static class TsaCli
 
     public static void ShowHelp()
     {
-        Console.WriteLine("✈️ Terrible Settings Auditor (TSA)");
+        Console.WriteLine("️👮 Terrible Settings Auditor (TSA)");
         Console.WriteLine("tsa --help                Show help info");
         Console.WriteLine("tsa --screen              Ensures all configuration and settings are present.");
         //Console.WriteLine("tsa --generate          Creates a scaffolded tsa.json configuration file for TSA settings.");
