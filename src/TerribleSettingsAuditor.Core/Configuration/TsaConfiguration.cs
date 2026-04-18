@@ -18,5 +18,5 @@ public class TsaConfiguration
     ///  This limits how many stars are used when exposing a secret.
     ///  i.e, "asdfdf***********************************************************2143"
     /// </summary>
-    public int? DefaultMaxExposeSecretLength { get; set; } = 100;
+    public int? DefaultMaxExposeSecretLength { get; set; } = 30;
 }

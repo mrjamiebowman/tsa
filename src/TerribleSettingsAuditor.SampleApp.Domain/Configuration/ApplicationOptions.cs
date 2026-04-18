@@ -3,7 +3,7 @@ using TerribleSettingsAuditor.Abstractions.Attribute;
 
 namespace TerribleSettingsAuditor.SampleApp.Domain.Configuration;
 
-[Luggage("ApplicationOptions", "Application settings")]
+[Luggage("Application settings", Pinned = true, Order = 1)]
 public class ApplicationOptions
 {
     /// <summary>
@@ -13,8 +13,8 @@ public class ApplicationOptions
 
     public bool DebugMode { get; set; } = false;
 
-    [LuggageItem("Application Title")]
     [Required]
+    [LuggageItem("Application Title")]
     public string? Title { get; set; }
 
     [LuggageItem("DoesntNeedToBeSet")]

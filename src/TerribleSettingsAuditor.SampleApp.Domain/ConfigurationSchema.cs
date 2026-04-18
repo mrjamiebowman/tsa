@@ -6,11 +6,18 @@ namespace TerribleSettingsAuditor.SampleApp.Domain;
 [LuggageCart("appsettings")]
 public class ConfigurationSchema
 {
-    public ApplicationOptions? ApplicationOptions { get; set; }
+    public ApplicationOptions? ApplicationOptions = new ApplicationOptions()
+    {
+        Title = "Application Title",
+    };
 
     public BadConfiguration? BadConfiguration { get; set; }
 
-    public DatabaseConfiguration? DatabaseConfiguration { get; set; }
+    public DatabaseConfiguration? DatabaseConfiguration = new()
+    {
+        ConnectionStringSampleApp = "Server=localhost;Database=SampleAppDb;User Id=sa;Password=your_password;",
+        ConnectionStringUsersDb = "Server=localhost;Database=UsersDb;User Id=sa;Password=your_password;"
+    };
 
     public LibraryConfiguration? LibraryConfiguration { get; set; }
 }

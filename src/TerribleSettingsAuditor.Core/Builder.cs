@@ -4,9 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using TerribleSettingsAuditor.Core.CLI;
 using TerribleSettingsAuditor.Core.Configuration;
+using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Services;
 using TerribleSettingsAuditor.Core.Validators;
 
 namespace TerribleSettingsAuditor.Core;
@@ -36,7 +37,9 @@ public static class Builder
         builder.Services.AddSingleton(tsaConfiguration);
 
         // services
-        builder.Services.AddTransient<ITSA, TSA>();
+        builder.Services.TryAddTransient<ITsaCliService, TsaCliService>();
+        builder.Services.TryAddTransient<ITSA, TSA>();
+        builder.Services.TryAddTransient<ITsaConsoleTableWriter, TsaConsoleTableWriter>();
         builder.Services.TryAddTransient<ITsaConfigValidator, TsaConfigValidator>();
 
         return builder;
@@ -79,10 +82,11 @@ public static class Builder
         }
 
         // banner
-        TsaCli.ShowBanner();
+        TsaCliService.ShowBanner();
 
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
+        var tsaCli = app.ApplicationServices.GetRequiredService<ITsaCliService>();
 
         // tsa: screen
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -91,7 +95,7 @@ public static class Builder
         var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
 
         // render report
-        TsaCli.ShowReport(screeningReport);
+        tsaCli.ShowReport(screeningReport);
         
         // cli: ci/cd
         if (screeningReport.Pass == false && tsaConfiguration.AbortScreenFailure == true)
@@ -111,29 +115,30 @@ public static class Builder
         }
 
         // banner
-        TsaCli.ShowBanner();
+        TsaCliService.ShowBanner();
 
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
+        var tsaCli = app.ApplicationServices.GetRequiredService<ITsaCliService>();
 
         // help
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
         {
-            TsaCli.ShowHelp();
+            TsaCliService.ShowHelp();
             Environment.Exit(0);
         }
 
         // tsa: generate config
         if (args[0] == "tsa" && (args[1] == "--generate-config" || args[1] == "-gc"))
         {
-            TsaCli.WriteYellow("Generating TSA Config...");
+            CLI.WriteLinLineYellow("Generating TSA Config...");
             Environment.Exit(0);
         }
 
         // tsa: joke
         if (args[0] == "tsa" && (args[1] == "--joke" || args[1] == "-j"))
         {
-            TsaCli.GenerateJoke();
+            TsaCliService.GenerateJoke();
             Environment.Exit(0);
         }
 
@@ -149,7 +154,7 @@ public static class Builder
             var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
 
             // render report
-            TsaCli.ShowReport(screeningReport);
+            tsaCli.ShowReport(screeningReport);
 
             if (cliNoAbort)
             {

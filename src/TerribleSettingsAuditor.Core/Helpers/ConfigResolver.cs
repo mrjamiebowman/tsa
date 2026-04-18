@@ -1,8 +1,5 @@
 ﻿namespace TerribleSettingsAuditor.Core.Helpers;
 
-using System;
-using Microsoft.Extensions.DependencyInjection;
-
 public static class ConfigResolver
 {
     public static object? ResolveConfig(IServiceProvider serviceProvider, Type configType)

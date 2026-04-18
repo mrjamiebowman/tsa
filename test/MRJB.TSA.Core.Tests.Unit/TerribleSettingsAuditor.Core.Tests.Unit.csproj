@@ -15,13 +15,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
     <ProjectReference Include="..\..\src\TerribleSettingsAuditor.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
-    <ProjectReference Include="..\MRJB.TSA.Core.Tests\TerribleSettingsAuditor.Core.Tests.csproj" />
-    <ProjectReference Include="..\MRJB.TSA.SampleApp\TerribleSettingsAuditor.SampleApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

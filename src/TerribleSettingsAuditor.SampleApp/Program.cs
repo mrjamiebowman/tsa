@@ -13,9 +13,9 @@ builder.Services.AddOpenApi();
 
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
     .AddUserSecrets<Program>(optional: true)
-    .AddEnvironmentVariables();
+    .AddEnvironmentVariables()
+    .AddJsonFile("appsettings.overrides.json", optional: true, reloadOnChange: true);
 
 ////// this is one way to validate configuration but it only validates on run...
 ////// if we want to see this in a CI/CD pipeline then TSA is the way to go!
@@ -32,8 +32,11 @@ builder.Configuration
 //    .ValidateDataAnnotations()
 //    .ValidateOnStart();
 
+
+
+
 /****************************************/
-/*     tsa (not using attributes)       */
+/*     tsa (future approach)            */
 /****************************************/
 
 //builder.Services
@@ -51,6 +54,8 @@ builder.Configuration
 /****************************************/
 /*                tsa                   */
 /****************************************/
+
+builder.Services.Configure<AzureAppConfigOptions>(builder.Configuration.GetSection(AzureAppConfigOptions.Position));
 
 // configuration (singleton)
 DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
