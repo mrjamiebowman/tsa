@@ -12,10 +12,10 @@ public class DatabaseConfiguration
     public const string Position = "Database";
     
     [Required]
-    [LuggageItem("SampleApp Connection String")]
+    [LuggageItem("SampleApp Connection String", Expose = ExposeMethod.Padded, Secret = true, ShowLeft = 25)]
     public string? ConnectionStringSampleApp { get; set; }
     
     [Required]
-    [LuggageItem("UsersDb Connection String")]
+    [LuggageItem("UsersDb Connection String", Expose = ExposeMethod.Padded, Secret = true, ShowLeft = 25)]
     public string? ConnectionStringUsersDb { get; set; }
 }

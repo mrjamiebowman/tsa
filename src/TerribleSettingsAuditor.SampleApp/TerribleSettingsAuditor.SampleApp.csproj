@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\TerribleSettingsAuditor.Core\TerribleSettingsAuditor.Core.csproj" />
     <ProjectReference Include="..\..\src\TerribleSettingsAuditor.SampleApp.Domain\TerribleSettingsAuditor.SampleApp.Domain.csproj" />
+    <ProjectReference Include="..\TerribleSettingsAuditor.SampleApp.ServiceDefaults\TerribleSettingsAuditor.SampleApp.ServiceDefaults.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

@@ -68,16 +68,14 @@ builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection(
 // configuration (snapshot)
 builder.Services.Configure<BadConfiguration>(builder.Configuration.GetSection(BadConfiguration.Position));
 
-// library configuration (snapshot)
-builder.Services.Configure<LibraryConfiguration>(builder.Configuration.GetSection(LibraryConfiguration.Position));
-
 /****************************************/
 /*                tsa                   */
 /****************************************/
 
-builder.AddTerribleSettingsAuditor(s => {
+builder.AddTerribleSettingsAuditor(s =>
+{
     s.ScreenOnStartup = true;
-    s.AbortScreenFailure = true;
+    s.AbortScreenFailure = false;
 });
 
 var app = builder.Build();

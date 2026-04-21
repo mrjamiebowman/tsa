@@ -18,6 +18,4 @@ public class ConfigurationSchema
         ConnectionStringSampleApp = "Server=localhost;Database=SampleAppDb;User Id=sa;Password=your_password;",
         ConnectionStringUsersDb = "Server=localhost;Database=UsersDb;User Id=sa;Password=your_password;"
     };
-
-    public LibraryConfiguration? LibraryConfiguration { get; set; }
 }

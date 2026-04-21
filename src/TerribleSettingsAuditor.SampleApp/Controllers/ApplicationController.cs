@@ -15,15 +15,13 @@ public class ApplicationController : ControllerBase
     private readonly DatabaseConfiguration _databaseConfiguration;
     private readonly ApplicationOptions _applicationOptions;
     private readonly BadConfiguration _badConfiguration;
-    private readonly LibraryConfiguration _libraryConfiguration;
 
-    public ApplicationController(ILogger<ApplicationController> logger, DatabaseConfiguration databaseConfiguration, IOptions<ApplicationOptions> applicationOptions, IOptions<LibraryConfiguration> libraryConfiguration, IOptionsSnapshot<BadConfiguration> badConfiguration)
+    public ApplicationController(ILogger<ApplicationController> logger, DatabaseConfiguration databaseConfiguration, IOptions<ApplicationOptions> applicationOptions, IOptionsSnapshot<BadConfiguration> badConfiguration)
     {
         _logger = logger;
         _databaseConfiguration = databaseConfiguration;
         _applicationOptions = applicationOptions.Value;
         _badConfiguration = badConfiguration.Value;
-        _libraryConfiguration = libraryConfiguration.Value;
     }
 
     [HttpGet("title")]
