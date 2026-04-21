@@ -32,9 +32,6 @@ builder.Configuration
 //    .ValidateDataAnnotations()
 //    .ValidateOnStart();
 
-
-
-
 /****************************************/
 /*     tsa (future approach)            */
 /****************************************/
