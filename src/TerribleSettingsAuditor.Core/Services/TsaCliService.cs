@@ -24,12 +24,15 @@ public class TsaCliService : ITsaCliService
         _tsaConfiguration = tsaConfiguration;
     }
 
-    public void ShowReport(ScreeningReport screeningReport)
+    public void ShowReport(ScreeningReport screeningReport, ScreeningOptions? screeningOptions)
     {
         Console.WriteLine("");
-        Console.WriteLine("");
-        CLI.WriteLineGreen($" 👮 TSA: {CLI.GenerateRandomScreeningReportMessage()}");
-        Console.WriteLine("");
+        if (screeningOptions?.Quiet == false)
+        {
+            Console.WriteLine("");
+            CLI.WriteLineGreen($" 👮 TSA: {CLI.GenerateRandomScreeningReportMessage()}");
+            Console.WriteLine("");
+        }
         ShowBlock(" 📄 Screening Report");
         Console.WriteLine("");
 

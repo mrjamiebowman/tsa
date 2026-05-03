@@ -18,7 +18,7 @@ public interface ITsaCliService
 
     //void ShowLogo();
 
-    void ShowReport(ScreeningReport screeningReport);
+    void ShowReport(ScreeningReport screeningReport, ScreeningOptions? screeningOptions);
 
     //void WriteError(string message);
 

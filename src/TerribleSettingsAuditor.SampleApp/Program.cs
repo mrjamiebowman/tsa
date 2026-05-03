@@ -69,11 +69,7 @@ builder.Services.Configure<BadConfiguration>(builder.Configuration.GetSection(Ba
 /*                tsa                   */
 /****************************************/
 
-builder.AddTerribleSettingsAuditor(s =>
-{
-    s.ScreenOnStartup = true;
-    s.AbortScreenFailure = false;
-});
+builder.AddTerribleSettingsAuditor();
 
 var app = builder.Build();
 

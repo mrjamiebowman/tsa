@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using TerribleSettingsAuditor.Core.Configuration;
 using TerribleSettingsAuditor.Core.Helpers;
 using TerribleSettingsAuditor.Core.Interfaces;
+using TerribleSettingsAuditor.Core.Models;
 using TerribleSettingsAuditor.Core.Services;
 using TerribleSettingsAuditor.Core.Validators;
 
@@ -91,14 +92,17 @@ public static class Builder
         // tsa: screen
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
+        // screening options
+        ScreeningOptions screeningOptions = new ScreeningOptions();
+
         // screening report
-        var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
+        var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, screeningOptions, cancellationToken);
 
         // render report
-        tsaCli.ShowReport(screeningReport);
+        tsaCli.ShowReport(screeningReport, screeningOptions);
         
         // cli: ci/cd
-        if (screeningReport.Pass == false && tsaConfiguration.AbortScreenFailure == true)
+        if (screeningReport.Pass == false && tsaConfiguration.AbortOnScreenFailure == true)
         {
             // fail
             Environment.Exit(1);
@@ -114,12 +118,44 @@ public static class Builder
             return;
         }
 
-        // banner
-        TsaCliService.ShowBanner();
-
         // tsa
         var tsa = app.ApplicationServices.GetRequiredService<ITSA>();
         var tsaCli = app.ApplicationServices.GetRequiredService<ITsaCliService>();
+
+        /****************************************/
+        /*                params                */
+        /****************************************/
+
+        // vars
+        bool optionNoJoke = args
+            .Skip(1)
+            .Any(x => x.Equals("--no-joke", StringComparison.OrdinalIgnoreCase)
+                   || x.Equals("--nojoke", StringComparison.OrdinalIgnoreCase));
+
+        bool optionQuiet = args
+            .Skip(1)
+            .Any(x => x.Equals("--quiet", StringComparison.OrdinalIgnoreCase));
+
+        bool optionNoAbort = args
+            .Skip(1)
+            .Any(x => x.Equals("--no-abort", StringComparison.OrdinalIgnoreCase)
+                   || x.Equals("--noabort", StringComparison.OrdinalIgnoreCase));
+
+        ScreeningOptions screeningOptions = new ScreeningOptions();
+        screeningOptions.NoJoke = optionNoJoke;
+        screeningOptions.Quiet = optionQuiet;
+        screeningOptions.NoAbort = optionNoAbort;
+
+        /****************************************/
+        /*             general cli              */
+        /****************************************/
+
+        // --quiet
+        if (screeningOptions.Quiet == false)
+        {
+            // banner
+            TsaCliService.ShowBanner();
+        }
 
         // help
         if (args[0] == "tsa" && (args[1] == "--help" || args[1] == "-h"))
@@ -142,40 +178,43 @@ public static class Builder
             Environment.Exit(0);
         }
 
+        /****************************************/
+        /*               screening              */
+        /****************************************/
+
         // tsa: screen
         if (args[0] == "tsa" && (args[1] == "--screen" || args[1] == "-s"))
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            // abort
-            bool cliNoAbort = args.Contains("--no-abort");
+            screeningOptions.Assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             // screening report
-            var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, assemblies, cancellationToken);
+            var screeningReport = await tsa.ScreenAsync(app.ApplicationServices, screeningOptions, cancellationToken);
 
             // render report
-            tsaCli.ShowReport(screeningReport);
+            tsaCli.ShowReport(screeningReport, screeningOptions);
 
-            if (cliNoAbort)
+            if (screeningOptions.NoAbort)
             {
                 // return app or this will stop execution.
                 return;
             }
+
+            // will abort (ci/cd)
+            if (screeningReport.Pass == true)
+            {
+                // success
+                Environment.Exit(0);
+            }
             else
             {
-                // cli: ci/cd
-                if (screeningReport.Pass == true)
-                {
-                    // success
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    // fail
-                    Environment.Exit(1);
-                }
+                // fail
+                Environment.Exit(1);
             }
         }
+
+        /****************************************/
+        /*               validation             */
+        /****************************************/
 
         //// tsa: validate
         //if (args[0] == "tsa" && (args[1] == "--validate" || args[1] == "-v"))

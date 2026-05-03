@@ -10,9 +10,10 @@ public class TsaConfiguration
     public bool ScreenOnStartup { get; set; } = true;
 
     /// <summary>
-    ///  Abort if Screening fails on Startup
+    ///  Abort on Screening fails on Startup 
+    ///  Default: false
     /// </summary>
-    public bool AbortScreenFailure { get; set; }
+    public bool AbortOnScreenFailure { get; set; }
 
     /// <summary>
     ///  This limits how many stars are used when exposing a secret.
