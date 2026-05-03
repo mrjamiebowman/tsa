@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire/TSA.SampleApp.AppHost/TSA.SampleApp.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/sample-app/">
+    <Project Path="src/TerribleSettingsAuditor.SampleApp.Domain/TerribleSettingsAuditor.SampleApp.Domain.csproj" />
+    <Project Path="src/TerribleSettingsAuditor.SampleApp.ServiceDefaults/TerribleSettingsAuditor.SampleApp.ServiceDefaults.csproj" />
+    <Project Path="src/TerribleSettingsAuditor.SampleApp/TerribleSettingsAuditor.SampleApp.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TerribleSettingsAuditor.Abstractions/TerribleSettingsAuditor.Abstractions.csproj" />
+    <Project Path="src/TerribleSettingsAuditor.Core/TerribleSettingsAuditor.Core.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/MRJB.TSA.Core.Tests.Unit/TerribleSettingsAuditor.Core.Tests.Unit.csproj" />
+    <Project Path="test/MRJB.TSA.Core.Tests/TerribleSettingsAuditor.Core.Tests.csproj" />
+  </Folder>
+  <Folder Name="/_Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>
